@@ -13390,7 +13390,7 @@ var $author$project$Main$navBar = A2(
 		]),
 	_List_fromArray(
 		[
-			$mdgriffith$elm_ui$Element$text('Git trainer')
+			$mdgriffith$elm_ui$Element$text('Git trainer yo')
 		]));
 var $author$project$Main$view = function (model) {
 	return A2(
