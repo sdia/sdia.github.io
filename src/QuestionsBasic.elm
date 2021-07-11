@@ -56,9 +56,9 @@ questions =
         [ "doc/**/*.pdf" ]
     , Question
         "how to know what has been staged and will go in the next commit?"
-        "think different"
-        [ "git diff --staged"
-        , "git diff --cached"
+        "think different with stat"
+        [ "git diff --staged --stat"
+        , "git diff --cached --stat"
         ]
     , Question
         "how to know what you have changed but not yet staged?"
@@ -346,8 +346,8 @@ questions =
         "$ >"
         [ "git log --no-merges" ]
     , Question
-        "how to compare commits between my-branch(behind) and origin/develop(ahead) excluding merges?"
-        "$ >"
+        "how to compare commits between my-branch and origin/develop excluding merges?"
+        "origin is ahead"
         [ "git log --no-merges my-branch..origin/develop" ]
     , Question
         "how to merge my-branch squashing all commits into one?"

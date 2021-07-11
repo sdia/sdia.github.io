@@ -5495,9 +5495,9 @@ var $author$project$QuestionsBasic$questions = _List_fromArray(
 		A3(
 		$author$project$Question$Question,
 		'how to know what has been staged and will go in the next commit?',
-		'think different',
+		'think different with stat',
 		_List_fromArray(
-			['git diff --staged', 'git diff --cached'])),
+			['git diff --staged --stat', 'git diff --cached --stat'])),
 		A3(
 		$author$project$Question$Question,
 		'how to know what you have changed but not yet staged?',
@@ -5896,8 +5896,8 @@ var $author$project$QuestionsBasic$questions = _List_fromArray(
 			['git log --no-merges'])),
 		A3(
 		$author$project$Question$Question,
-		'how to compare commits between my-branch(behind) and origin/develop(ahead) excluding merges?',
-		'$ >',
+		'how to compare commits between my-branch and origin/develop excluding merges?',
+		'origin is ahead',
 		_List_fromArray(
 			['git log --no-merges my-branch..origin/develop'])),
 		A3(
@@ -11931,6 +11931,44 @@ var $mdgriffith$elm_ui$Element$paddingXY = F2(
 					xFloat));
 		}
 	});
+var $mdgriffith$elm_ui$Internal$Model$Paragraph = {$: 9};
+var $mdgriffith$elm_ui$Internal$Model$SpacingStyle = F3(
+	function (a, b, c) {
+		return {$: 5, a: a, b: b, c: c};
+	});
+var $mdgriffith$elm_ui$Internal$Flag$spacing = $mdgriffith$elm_ui$Internal$Flag$flag(3);
+var $mdgriffith$elm_ui$Internal$Model$spacingName = F2(
+	function (x, y) {
+		return 'spacing-' + ($elm$core$String$fromInt(x) + ('-' + $elm$core$String$fromInt(y)));
+	});
+var $mdgriffith$elm_ui$Element$spacing = function (x) {
+	return A2(
+		$mdgriffith$elm_ui$Internal$Model$StyleClass,
+		$mdgriffith$elm_ui$Internal$Flag$spacing,
+		A3(
+			$mdgriffith$elm_ui$Internal$Model$SpacingStyle,
+			A2($mdgriffith$elm_ui$Internal$Model$spacingName, x, x),
+			x,
+			x));
+};
+var $mdgriffith$elm_ui$Element$paragraph = F2(
+	function (attrs, children) {
+		return A4(
+			$mdgriffith$elm_ui$Internal$Model$element,
+			$mdgriffith$elm_ui$Internal$Model$asParagraph,
+			$mdgriffith$elm_ui$Internal$Model$div,
+			A2(
+				$elm$core$List$cons,
+				$mdgriffith$elm_ui$Internal$Model$Describe($mdgriffith$elm_ui$Internal$Model$Paragraph),
+				A2(
+					$elm$core$List$cons,
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+					A2(
+						$elm$core$List$cons,
+						$mdgriffith$elm_ui$Element$spacing(5),
+						attrs))),
+			$mdgriffith$elm_ui$Internal$Model$Unkeyed(children));
+	});
 var $mdgriffith$elm_ui$Internal$Model$Px = function (a) {
 	return {$: 0, a: a};
 };
@@ -11988,25 +12026,6 @@ var $mdgriffith$elm_ui$Element$Font$size = function (i) {
 		$mdgriffith$elm_ui$Internal$Model$StyleClass,
 		$mdgriffith$elm_ui$Internal$Flag$fontSize,
 		$mdgriffith$elm_ui$Internal$Model$FontSize(i));
-};
-var $mdgriffith$elm_ui$Internal$Model$SpacingStyle = F3(
-	function (a, b, c) {
-		return {$: 5, a: a, b: b, c: c};
-	});
-var $mdgriffith$elm_ui$Internal$Flag$spacing = $mdgriffith$elm_ui$Internal$Flag$flag(3);
-var $mdgriffith$elm_ui$Internal$Model$spacingName = F2(
-	function (x, y) {
-		return 'spacing-' + ($elm$core$String$fromInt(x) + ('-' + $elm$core$String$fromInt(y)));
-	});
-var $mdgriffith$elm_ui$Element$spacing = function (x) {
-	return A2(
-		$mdgriffith$elm_ui$Internal$Model$StyleClass,
-		$mdgriffith$elm_ui$Internal$Flag$spacing,
-		A3(
-			$mdgriffith$elm_ui$Internal$Model$SpacingStyle,
-			A2($mdgriffith$elm_ui$Internal$Model$spacingName, x, x),
-			x,
-			x));
 };
 var $author$project$ColorSummer$teal = A3($mdgriffith$elm_ui$Element$rgb255, 77, 188, 198);
 var $mdgriffith$elm_ui$Internal$Model$Text = function (a) {
@@ -13130,7 +13149,7 @@ var $author$project$Main$bodyContent = function (model) {
 			});
 		var input_button_show_next = (!model.C) ? A3(make_button, $author$project$Main$Next, 'next >', $author$project$ColorSummer$teal) : (model.X ? A3(make_button, $author$project$Main$Next, 'next >', $author$project$ColorSummer$teal) : A3(make_button, $author$project$Main$ShowSolution, 'show', $author$project$ColorSummer$red));
 		return A2(
-			$mdgriffith$elm_ui$Element$column,
+			$mdgriffith$elm_ui$Element$row,
 			_List_fromArray(
 				[
 					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
@@ -13139,35 +13158,68 @@ var $author$project$Main$bodyContent = function (model) {
 			_List_fromArray(
 				[
 					A2(
-					$mdgriffith$elm_ui$Element$row,
+					$mdgriffith$elm_ui$Element$column,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$centerX,
-							$mdgriffith$elm_ui$Element$centerY,
-							A2($mdgriffith$elm_ui$Element$paddingXY, 20, 50),
-							$mdgriffith$elm_ui$Element$Font$size(30)
+							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
 						]),
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$text(
-							$author$project$Main$capitalizeString(question.W))
-						])),
+					_List_Nil),
 					A2(
-					$mdgriffith$elm_ui$Element$row,
+					$mdgriffith$elm_ui$Element$column,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$centerX,
-							$mdgriffith$elm_ui$Element$centerY,
-							$mdgriffith$elm_ui$Element$padding(10),
 							$mdgriffith$elm_ui$Element$width(
 							$mdgriffith$elm_ui$Element$px(750)),
-							$mdgriffith$elm_ui$Element$spacing(20)
+							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
 						]),
 					_List_fromArray(
 						[
-							A5($author$project$Main$viewInput, model, question.cp, model.ad, question.aV, $author$project$Main$Answer),
-							input_button_show_next
-						]))
+							A2(
+							$mdgriffith$elm_ui$Element$row,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$centerX,
+									$mdgriffith$elm_ui$Element$centerY,
+									A2($mdgriffith$elm_ui$Element$paddingXY, 20, 50),
+									$mdgriffith$elm_ui$Element$Font$size(30)
+								]),
+							_List_fromArray(
+								[
+									A2(
+									$mdgriffith$elm_ui$Element$paragraph,
+									_List_Nil,
+									_List_fromArray(
+										[
+											$mdgriffith$elm_ui$Element$text(
+											$author$project$Main$capitalizeString(question.W))
+										]))
+								])),
+							A2(
+							$mdgriffith$elm_ui$Element$row,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$centerX,
+									$mdgriffith$elm_ui$Element$centerY,
+									$mdgriffith$elm_ui$Element$padding(10),
+									$mdgriffith$elm_ui$Element$width(
+									$mdgriffith$elm_ui$Element$px(750)),
+									$mdgriffith$elm_ui$Element$spacing(20)
+								]),
+							_List_fromArray(
+								[
+									A5($author$project$Main$viewInput, model, question.cp, model.ad, question.aV, $author$project$Main$Answer),
+									input_button_show_next
+								]))
+						])),
+					A2(
+					$mdgriffith$elm_ui$Element$column,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+						]),
+					_List_Nil)
 				]));
 	} else {
 		return A2(
