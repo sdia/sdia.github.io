@@ -13235,11 +13235,20 @@ var $author$project$Main$footerContent = A2(
 	$mdgriffith$elm_ui$Element$row,
 	_List_fromArray(
 		[
-			$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+			$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+			A2($mdgriffith$elm_ui$Element$paddingXY, 40, 20),
+			$mdgriffith$elm_ui$Element$centerX
 		]),
 	_List_fromArray(
 		[
-			$mdgriffith$elm_ui$Element$text('copyright sdia.pyc@gmail.com, 2021')
+			A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[$mdgriffith$elm_ui$Element$centerX]),
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$text('sdia.pyc@gmail.com')
+				]))
 		]));
 var $mdgriffith$elm_ui$Internal$Model$OnlyDynamic = F2(
 	function (a, b) {
@@ -13446,15 +13455,44 @@ var $mdgriffith$elm_ui$Element$layoutWith = F3(
 	});
 var $mdgriffith$elm_ui$Element$layout = $mdgriffith$elm_ui$Element$layoutWith(
 	{bh: _List_Nil});
+var $mdgriffith$elm_ui$Internal$Model$Left = 0;
+var $mdgriffith$elm_ui$Element$alignLeft = $mdgriffith$elm_ui$Internal$Model$AlignX(0);
+var $mdgriffith$elm_ui$Internal$Model$Right = 2;
+var $mdgriffith$elm_ui$Element$alignRight = $mdgriffith$elm_ui$Internal$Model$AlignX(2);
 var $author$project$Main$navBar = A2(
 	$mdgriffith$elm_ui$Element$row,
 	_List_fromArray(
 		[
-			$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill)
+			$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+			A2($mdgriffith$elm_ui$Element$paddingXY, 40, 20),
+			$mdgriffith$elm_ui$Element$spacing(20)
 		]),
 	_List_fromArray(
 		[
-			$mdgriffith$elm_ui$Element$text('Git trainer')
+			A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[$mdgriffith$elm_ui$Element$alignLeft]),
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$text('Git trainer')
+				])),
+			A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[$mdgriffith$elm_ui$Element$alignLeft]),
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$text('/resources')
+				])),
+			A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[$mdgriffith$elm_ui$Element$alignRight]),
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$text('/about')
+				]))
 		]));
 var $author$project$Main$view = function (model) {
 	return A2(

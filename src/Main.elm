@@ -165,7 +165,11 @@ view model =
 
 navBar : Element msg
 navBar =
-    row [ width fill ] [ text "Git trainer" ]
+    row [ width fill, paddingXY 40 20, spacing 20 ]
+        [ column [ alignLeft ] [ text "Git trainer" ]
+        , column [ alignLeft ] [ text "/resources" ]
+        , column [ alignRight ] [ text "/about" ]
+        ]
 
 
 bodyContent : Model -> Element Msg
@@ -234,7 +238,9 @@ bodyContent model =
 
 footerContent : Element msg
 footerContent =
-    row [ width fill ] [ text "copyright sdia.pyc@gmail.com, 2021" ]
+    row [ width fill, paddingXY 40 20, centerX ]
+        [ column [ centerX ] [ text "sdia.pyc@gmail.com" ]
+        ]
 
 
 viewInput : Model -> String -> String -> List Answer -> (String -> Msg) -> Element Msg
