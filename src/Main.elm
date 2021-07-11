@@ -194,27 +194,38 @@ bodyContent model =
                     else
                         make_button ShowSolution "show" red
             in
-            column [ width fill, height fill ]
-                [ row
-                    [ centerX
-                    , centerY
-                    , paddingXY 20 50
-                    , Font.size 30
+            row
+                [ width fill
+                , height fill
+
+                -- , explain Debug.todo
+                ]
+                [ column [ width fill, height fill ] []
+                , column [ width (px 750), height fill ]
+                    [ row
+                        [ centerX
+                        , centerY
+                        , paddingXY 20 50
+                        , Font.size 30
+                        ]
+                        [ paragraph []
+                            [ question.question
+                                |> capitalizeString
+                                |> text
+                            ]
+                        ]
+                    , row
+                        [ centerX
+                        , centerY
+                        , padding 10
+                        , width (px 750)
+                        , spacing 20
+                        ]
+                        [ viewInput model question.hint model.current_answer question.answers Answer
+                        , input_button_show_next
+                        ]
                     ]
-                    [ question.question
-                        |> capitalizeString
-                        |> text
-                    ]
-                , row
-                    [ centerX
-                    , centerY
-                    , padding 10
-                    , width (px 750)
-                    , spacing 20
-                    ]
-                    [ viewInput model question.hint model.current_answer question.answers Answer
-                    , input_button_show_next
-                    ]
+                , column [ width fill, height fill ] []
                 ]
 
         Nothing ->
@@ -282,7 +293,7 @@ viewInput model hint current_answer answers toMsg =
         ]
         { onChange = toMsg --\o -> toMsg o
         , text = answer_to_show
-        , placeholder = Nothing --Maybe (Placeholder msg)
+        , placeholder = Just (Input.placeholder [ Font.color gray_light ] (text hint))
         , label = Input.labelHidden "label"
         }
 
