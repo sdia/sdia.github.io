@@ -5423,523 +5423,523 @@ var $author$project$QuestionsBasic$questions = _List_fromArray(
 		A3(
 		$author$project$Question$Question,
 		'how to initialize a Git repository (in an existing directory)?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git init'])),
 		A3(
 		$author$project$Question$Question,
 		'how to track file.txt?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git add file.txt'])),
 		A3(
 		$author$project$Question$Question,
-		'how to check files status (staged and unstaged)?',
-		'hint',
+		'how to check files status?',
+		'staged and unstaged',
 		_List_fromArray(
 			['git status'])),
 		A3(
 		$author$project$Question$Question,
 		'how to stage file.txt?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git add file.txt'])),
 		A3(
 		$author$project$Question$Question,
-		'how to get compact (short) files status (staged and unstaged)?',
-		'hint',
+		'how to get compact files status?',
+		'staged and unstaged, compact i.e short',
 		_List_fromArray(
 			['git status -s', 'git status --short'])),
 		A3(
 		$author$project$Question$Question,
-		'where to declare untracked files as pattern?',
-		'hint',
+		'in which file are declared untracked file pattern?',
+		'things you want to ignore',
 		_List_fromArray(
 			['.gitignore'])),
 		A3(
 		$author$project$Question$Question,
-		'.gitignore: ignore all .a files',
-		'hint',
+		'how to ignore all files with \'a\' extention',
+		'like in my-file.a',
 		_List_fromArray(
 			['*.a'])),
 		A3(
 		$author$project$Question$Question,
-		'.gitignore: *.a are ignored but track lib.a',
-		'hint',
+		'how to not ignore lib.a if .gitignore already has *.a',
+		'logical not in Python',
 		_List_fromArray(
 			['!lib.a'])),
 		A3(
 		$author$project$Question$Question,
-		'.gitignore: only ignore TODO in current directory',
-		'hint',
+		'how to ignore the TODO file in the project root?',
+		'and nothing else',
 		_List_fromArray(
 			['/TODO'])),
 		A3(
 		$author$project$Question$Question,
-		'.gitignore: ignore all files in any directory named build',
-		'hint',
+		'how to ignore all files in any directory named build?',
+		'$ >',
 		_List_fromArray(
 			['build/'])),
 		A3(
 		$author$project$Question$Question,
-		'.gitignore: ignore txt files in doc/ but not in its subfolder',
-		'hint',
+		'how to ignore txt files in the doc/ folder but not in its subfolder',
+		'$ >',
 		_List_fromArray(
 			['doc/*.txt'])),
 		A3(
 		$author$project$Question$Question,
-		'.gitignore: ignore all .pdf files in the doc/ directory and any of its subdirectories',
-		'hint',
+		'how to ignore all pdf files in the doc/ directory and any of its subdirectories',
+		'$ >',
 		_List_fromArray(
 			['doc/**/*.pdf'])),
 		A3(
 		$author$project$Question$Question,
-		'what have you staged that will go to the next commit?',
-		'difference is key here...',
+		'how to know what has been staged and will go in the next commit?',
+		'think different',
 		_List_fromArray(
 			['git diff --staged', 'git diff --cached'])),
 		A3(
 		$author$project$Question$Question,
-		'what have you changed but not yet staged?',
-		'hint',
+		'how to know what you have changed but not yet staged?',
+		'think different',
 		_List_fromArray(
 			['git diff'])),
 		A3(
 		$author$project$Question$Question,
 		'how to commit your changes?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git commit'])),
 		A3(
 		$author$project$Question$Question,
-		'how to commit automatically all tracked files skipping staging step?',
-		'hint',
+		'how to stage and commit tracked files?',
+		'think automatic',
 		_List_fromArray(
 			['git commit -a'])),
 		A3(
 		$author$project$Question$Question,
 		'how to untrack file.txt while keeping it in your working directory?',
-		'hint',
+		'remove it from the index',
 		_List_fromArray(
 			['git rm --cached file.txt'])),
 		A3(
 		$author$project$Question$Question,
 		'how to rename an already tracked file.from to file.to?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git mv file.from file.to'])),
 		A3(
 		$author$project$Question$Question,
 		'how to view the commit history?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git log'])),
 		A3(
 		$author$project$Question$Question,
 		'how to view the commit history as well as the change introduced by each commit?',
-		'hint',
+		'a change is a patch',
 		_List_fromArray(
 			['git log -p', 'git log --patch'])),
 		A3(
 		$author$project$Question$Question,
 		'how to view commit history and limit logs entries to 3?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git log -3'])),
 		A3(
 		$author$project$Question$Question,
-		'how to view commit history in abbreviated stat mode?',
-		'hint',
+		'how to view files modified by each commit in the history?',
+		'some statistics',
 		_List_fromArray(
 			['git log --stat'])),
 		A3(
 		$author$project$Question$Question,
-		'how to view commit history relative to the number of occurences of the string function_name?',
-		'hint',
+		'how many occurrence of the string my-string in the commit history?',
+		'$ >',
 		_List_fromArray(
-			['git log -S function_name'])),
+			['git log -S my-string'])),
 		A3(
 		$author$project$Question$Question,
-		'how to view commit history relative to the file path/file.txt ?',
-		'hint',
+		'how to view commit history only for path/file.txt ?',
+		'$ >',
 		_List_fromArray(
 			['git log -- path/file.txt'])),
 		A3(
 		$author$project$Question$Question,
-		'how to redo the last commit: update message, change files etc.',
-		'hint',
+		'how to change the last commit?',
+		'i.e. update commit message, stage files',
 		_List_fromArray(
 			['git commit --amend'])),
 		A3(
 		$author$project$Question$Question,
-		'unstaging a staged file file.txt, using reset?',
-		'hint',
+		'how to unstage file.txt?',
+		'reset to current commit',
 		_List_fromArray(
-			['git reset HEAD file.txt'])),
+			['git reset HEAD file.txt', 'git reset --mixed HEAD file.txt'])),
 		A3(
 		$author$project$Question$Question,
-		'unmodifying a modified file?',
-		'hint',
+		'how to undo unstage modifications to file.txt?',
+		'dangerous',
 		_List_fromArray(
-			['git checkout file'])),
+			['git checkout file.txt'])),
 		A3(
 		$author$project$Question$Question,
-		'unstaging a staged file file.txt, using restore?',
-		'hint',
+		'how to unstage file.txt?',
+		'using restore',
 		_List_fromArray(
 			['git restore --staged file.txt'])),
 		A3(
 		$author$project$Question$Question,
-		'list the remotes name (shortname)?',
-		'hint',
+		'how to list the remotes?',
+		'$ >',
 		_List_fromArray(
 			['git remote', 'git remote -v'])),
 		A3(
 		$author$project$Question$Question,
-		'list the remotes, urls, and writing vs reading?',
-		'hint',
+		'how to list the remotes, ?',
+		'with more details',
 		_List_fromArray(
 			['git remote -v'])),
 		A3(
 		$author$project$Question$Question,
-		'add a new remote git repo named eureka located at https://eureka.git',
-		'hint',
+		'how to add a new remote repo named abc located at https://abc.git?',
+		'$ >',
 		_List_fromArray(
-			['git remote add eureka https://eureka.git'])),
+			['git remote add abc https://abc.git'])),
 		A3(
 		$author$project$Question$Question,
-		'fetch all information from the remote called origin?',
-		'hint',
+		'how to fetch all informations from the remote called origin?',
+		'$ >',
 		_List_fromArray(
 			['git fetch origin'])),
 		A3(
 		$author$project$Question$Question,
-		'what does git pull do in terms of action_a && action_b?',
-		'hint',
+		'what does git pull do?',
+		'think a && b',
 		_List_fromArray(
 			['git fetch && git merge'])),
 		A3(
 		$author$project$Question$Question,
-		'how to push your work to the master branch of origin repo? (full command)',
-		'hint',
+		'how to push to the master branch of the remote origin?',
+		'$ >',
 		_List_fromArray(
 			['git push origin master'])),
 		A3(
 		$author$project$Question$Question,
-		'how to see more information regarding your remote called origin?',
-		'hint',
+		'how to see information of your remote called origin?',
+		'show me the data',
 		_List_fromArray(
 			['git remote show origin'])),
 		A3(
 		$author$project$Question$Question,
 		'how to rename a remote called paul to mike?',
-		'hint',
+		'literally',
 		_List_fromArray(
 			['git remote rename paul mike'])),
 		A3(
 		$author$project$Question$Question,
 		'how to list tags?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git tag', 'git tag -l', 'git tag --list'])),
 		A3(
 		$author$project$Question$Question,
-		'how to list tags using wildcard e.g. v1.8.5* ?',
-		'hint',
+		'how to list tags starting with v1?',
+		'v1.0, v1.1, v1dev',
 		_List_fromArray(
-			['git tag -l v1.8.5*', 'git tag --list v1.8.5*'])),
+			['git tag -l v1*', 'git tag --list v1*'])),
 		A3(
 		$author$project$Question$Question,
-		'what types of tag exist (alphabetical order)?',
-		'hint',
+		'Name one type of tag?',
+		'$ >',
 		_List_fromArray(
-			['lighweight annotated'])),
+			['lighweight', 'annotated'])),
 		A3(
 		$author$project$Question$Question,
-		'how to create annotated tag v1.4 with the tagging message \'hey\'.',
-		'hint',
+		'how to create the annotated tag v1.4 with the message \'hey\'',
+		'$ >',
 		_List_fromArray(
 			['git tag -a v1.4 -m \'hey\''])),
 		A3(
 		$author$project$Question$Question,
-		'how to create lighweight tag v1.4-lw?',
-		'hint',
+		'how to create lighweight tag v1.4?',
+		'$ >',
 		_List_fromArray(
-			['git tag v1.4-lw'])),
+			['git tag v1.4'])),
 		A3(
 		$author$project$Question$Question,
-		'how to show information about tag v1.4?',
-		'hint',
+		'how to show information about the tag v1.4?',
+		'$ >',
 		_List_fromArray(
 			['git tag show v1.4'])),
 		A3(
 		$author$project$Question$Question,
-		'how to tag (annotated) the specific commit 9fceb02 to v1.4?',
-		'hint',
+		'how to tag the commit c12 to v1.4?',
+		'annotated',
 		_List_fromArray(
-			['git tag -a v1.4 9fceb02'])),
+			['git tag -a v1.4 c12'])),
 		A3(
 		$author$project$Question$Question,
-		'how to push tag v1.4 to origin?',
-		'hint',
+		'how to push the tag v1.4 to origin?',
+		'$ >',
 		_List_fromArray(
 			['git push origin v1.4'])),
 		A3(
 		$author$project$Question$Question,
-		'how to push all tags at once to origin?',
-		'hint',
+		'how to push all tags to origin?',
+		'$ >',
 		_List_fromArray(
 			['git push origin --tags'])),
 		A3(
 		$author$project$Question$Question,
-		'how to delete tag v1.4 (local)?',
-		'hint',
+		'how to delete tag v1.4?',
+		'$ >',
 		_List_fromArray(
 			['git tag -d v1.4'])),
 		A3(
 		$author$project$Question$Question,
-		'how to delete a remote tag v1.4 (using refs)?',
-		'hint',
+		'how to delete the tag v1.4 on the remote origin?',
+		'use refs',
 		_List_fromArray(
 			['git push origin :refs/tags/v1.4'])),
 		A3(
 		$author$project$Question$Question,
-		'how to delete a remote tag v1.4 (using --delete)?',
-		'hint',
+		'how to delete the tag v1.4 on the remote origin?',
+		'use delete',
 		_List_fromArray(
 			['git push origin --delete v1.4'])),
 		A3(
 		$author$project$Question$Question,
-		'how to view version of files the tag v1.4 is pointing to?',
-		'hint',
+		'how to check the code of v1.4?',
+		'literally',
 		_List_fromArray(
 			['git checkout v1.4'])),
 		A3(
 		$author$project$Question$Question,
-		'how to create a branch from tag v1.4 (with switch)?',
-		'hint',
+		'how to create a branch abc from v1.4?',
+		'use switch',
 		_List_fromArray(
-			['git switch -c v1.4'])),
+			['git switch -c abc v1.4'])),
 		A3(
 		$author$project$Question$Question,
-		'how to create a branch name version1.4 from tag v1.4 (using checkout)?',
-		'hint',
+		'how to create a branch abc from v1.4?',
+		'use checkout',
 		_List_fromArray(
-			['git checkout -b version1.4 v1.4'])),
+			['git checkout -b abc v1.4'])),
 		A3(
 		$author$project$Question$Question,
-		'how to create new branch my-branch (using branch)?',
-		'hint',
+		'how to create new branch my-branch?',
+		'checkout won\'t cut it',
 		_List_fromArray(
 			['git branch my-branch'])),
 		A3(
 		$author$project$Question$Question,
-		'the name of the pointer to the branch you are currently on?',
-		'hint',
+		'what the default name of the branch you are currently on?',
+		'handy for merge conflicts',
 		_List_fromArray(
 			['HEAD'])),
 		A3(
 		$author$project$Question$Question,
-		'how to switch to branch my-branch (using checkout)?',
-		'hint',
+		'how to switch to branch abc?',
+		'use checkout',
 		_List_fromArray(
-			['git checkout my-branch'])),
+			['git checkout abc'])),
 		A3(
 		$author$project$Question$Question,
-		'how to create branch my-branch and switch to the newly created (using checkout)?',
-		'hint',
+		'how to switch to branch abc?',
+		'use switch',
 		_List_fromArray(
-			['git checkout -b my-branch'])),
+			['git switch abc'])),
 		A3(
 		$author$project$Question$Question,
-		'how to switch to branch my-branch (using switch)?',
-		'hint',
+		'how to create branch abc and switch to it?',
+		'use checkout',
 		_List_fromArray(
-			['git switch my-branch'])),
+			['git checkout -b abc'])),
 		A3(
 		$author$project$Question$Question,
-		'how to create branch my-branch and switch to the newly created (using switch)?',
-		'hint',
+		'how to create branch abc and switch to it?',
+		'use switch',
 		_List_fromArray(
-			['git switch -c my-branch', 'git switch --create my-branch'])),
+			['git switch -c abc', 'git switch --create abc'])),
 		A3(
 		$author$project$Question$Question,
-		'if you are on master how to merge the branch hotfix into master?',
-		'hint',
+		'how to merge branch hotfix in your current?',
+		'$ >',
 		_List_fromArray(
 			['git merge hotfix'])),
 		A3(
 		$author$project$Question$Question,
-		'how to delete locally the branch hotfix?',
-		'hint',
+		'how to delete the branch hotfix?',
+		'locally',
 		_List_fromArray(
 			['git branch -d hotfix'])),
 		A3(
 		$author$project$Question$Question,
 		'how to list your local branches?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git branch'])),
 		A3(
 		$author$project$Question$Question,
-		'how to list your current branches and see the last commit on each branch?',
-		'hint',
+		'how to list branches and with last commits?',
+		'$ >',
 		_List_fromArray(
 			['git branch -v'])),
 		A3(
 		$author$project$Question$Question,
-		'how to list your branches and filter the one you have already merged to the current branch?',
-		'hint',
+		'how to list merged branches?',
+		'$ >',
 		_List_fromArray(
 			['git branch --merged'])),
 		A3(
 		$author$project$Question$Question,
-		'how to see all the branches that contain work you haven’t yet merged in?',
-		'hint',
+		'how to list not merged branches?',
+		'$ >',
 		_List_fromArray(
 			['git branch --no-merged'])),
 		A3(
 		$author$project$Question$Question,
-		'how to rename branch bad-branch to good-branch?',
-		'hint',
+		'how to rename branch asd to jkl?',
+		'$ >',
 		_List_fromArray(
-			['git branch --move bad-branch good-branch'])),
+			['git branch --move asd jkl'])),
 		A3(
 		$author$project$Question$Question,
-		'how to publish the branch my-branch on the remote named origin?',
-		'hint',
+		'how to publish the branch abc to remote origin?',
+		'... and track',
 		_List_fromArray(
-			['git push origin --set-upstream my-branch', 'git push origin -u my-branch'])),
+			['git push origin --set-upstream my-branch', 'git push origin -u abc'])),
 		A3(
 		$author$project$Question$Question,
-		'how to delete the branch my-branch on the remote named origin?',
-		'hint',
+		'how to delete the branch abc on the remote origin?',
+		'$ >',
 		_List_fromArray(
-			['git push origin --delete my-branch'])),
+			['git push origin --delete abc'])),
 		A3(
 		$author$project$Question$Question,
 		'how to list all branches local and remote?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git branch --all'])),
 		A3(
 		$author$project$Question$Question,
-		'how to get full information of remote branches on the origin remote?',
-		'hint',
+		'how to get information of remote branches on the origin remote?',
+		'show the data',
 		_List_fromArray(
 			['git remote show origin'])),
 		A3(
 		$author$project$Question$Question,
-		'what is the full command to push to the branch my-branch on the remote origin?',
-		'hint',
+		'how to push branch abc to remote origin?',
+		'$ >',
 		_List_fromArray(
-			['git push origin my-branch'])),
+			['git push origin abc'])),
 		A3(
 		$author$project$Question$Question,
-		'how to push from my-branch to the-other-branch on remote origin?',
-		'hint',
+		'how to push from branch abc to jkl on remote origin?',
+		'$ >',
 		_List_fromArray(
-			['git push origin my-branch:the-other-branch'])),
+			['git push origin abc:jkl'])),
 		A3(
 		$author$project$Question$Question,
-		'how to push from my-branch to the-other-branch on remote origin and track from now on?',
-		'hint',
+		'how to push from abc to jkl on remote origin and track?',
+		'$ >',
 		_List_fromArray(
-			['git push origin -u my-branch:the-other-branch'])),
+			['git push origin -u abc:jkl'])),
 		A3(
 		$author$project$Question$Question,
-		'your colleague created a new branch their-branch on remote origin, create a new branch my-branch from it?',
-		'hint',
+		'how to create branch abc from jkl on remote origin?',
+		'$ >',
 		_List_fromArray(
-			['git checkout -b my-branch origin/their-branch'])),
+			['git checkout -b abc origin/jkl'])),
 		A3(
 		$author$project$Question$Question,
-		'how to make your current branch track orign/their-branch?',
-		'hint',
+		'how to make your current branch track orign/jkl?',
+		'$ >',
 		_List_fromArray(
-			['git branch -u origin/their-branch', 'git branch --set-upstream origin/their-branch'])),
+			['git branch -u origin/jkl', 'git branch --set-upstream origin/jkl'])),
 		A3(
 		$author$project$Question$Question,
-		'how to see branch with tracking information?',
-		'hint',
+		'how to see branches tracking data?',
+		'$ >',
 		_List_fromArray(
 			['git branch -vv'])),
 		A3(
 		$author$project$Question$Question,
 		'how to rebase your current branch on master?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git rebase master'])),
 		A3(
 		$author$project$Question$Question,
 		'how to check for whitespaces error before commit?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git diff --check'])),
 		A3(
 		$author$project$Question$Question,
 		'how to partially stage changes in the same file?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git add --patch', 'git add -p'])),
 		A3(
 		$author$project$Question$Question,
 		'how to display the commits in origin/develop that are not in my-branch?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git log my-branch..origin/develop'])),
 		A3(
 		$author$project$Question$Question,
 		'how te see commit history excluding merge?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git log --no-merges'])),
 		A3(
 		$author$project$Question$Question,
 		'how to compare commits between my-branch(behind) and origin/develop(ahead) excluding merges?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git log --no-merges my-branch..origin/develop'])),
 		A3(
 		$author$project$Question$Question,
 		'how to merge my-branch squashing all commits into one?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git merge --squash my-branch'])),
 		A3(
 		$author$project$Question$Question,
 		'how to check the work my-branch has introduced since its common ancestor with master?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git diff master...my-branch'])),
 		A3(
 		$author$project$Question$Question,
 		'how to pull a single commit e43a6 into your current branch?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git cherry-pick e43a6'])),
 		A3(
 		$author$project$Question$Question,
 		'how to generate a build number from master?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git describe master'])),
 		A3(
 		$author$project$Question$Question,
 		'how to inspect commit 2bdf86',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git show 2bdf86'])),
 		A3(
 		$author$project$Question$Question,
 		'how to inspect branch my-branch?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git show my-branch'])),
 		A3(
 		$author$project$Question$Question,
 		'how to see a logs of HEAD history?',
-		'hint',
+		'$ >',
 		_List_fromArray(
 			['git reflog']))
 	]);
@@ -12149,6 +12149,11 @@ var $author$project$Main$onEnter = function (msg) {
 				},
 				A2($elm$json$Json$Decode$field, 'key', $elm$json$Json$Decode$string))));
 };
+var $mdgriffith$elm_ui$Element$Input$Placeholder = F2(
+	function (a, b) {
+		return {$: 0, a: a, b: b};
+	});
+var $mdgriffith$elm_ui$Element$Input$placeholder = $mdgriffith$elm_ui$Element$Input$Placeholder;
 var $mdgriffith$elm_ui$Element$Input$TextInputNode = function (a) {
 	return {$: 0, a: a};
 };
@@ -13089,7 +13094,14 @@ var $author$project$Main$viewInput = F5(
 			{
 				bb: $mdgriffith$elm_ui$Element$Input$labelHidden('label'),
 				cG: toMsg,
-				cP: $elm$core$Maybe$Nothing,
+				cP: $elm$core$Maybe$Just(
+					A2(
+						$mdgriffith$elm_ui$Element$Input$placeholder,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Font$color($author$project$ColorSummer$gray_light)
+							]),
+						$mdgriffith$elm_ui$Element$text(hint))),
 				c8: answer_to_show
 			});
 	});
@@ -13390,7 +13402,7 @@ var $author$project$Main$navBar = A2(
 		]),
 	_List_fromArray(
 		[
-			$mdgriffith$elm_ui$Element$text('Git trainer yo')
+			$mdgriffith$elm_ui$Element$text('Git trainer')
 		]));
 var $author$project$Main$view = function (model) {
 	return A2(

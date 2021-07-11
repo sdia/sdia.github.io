@@ -282,7 +282,7 @@ viewInput model hint current_answer answers toMsg =
         ]
         { onChange = toMsg --\o -> toMsg o
         , text = answer_to_show
-        , placeholder = Nothing --Maybe (Placeholder msg)
+        , placeholder = Just (Input.placeholder [ Font.color gray_light ] (text hint))
         , label = Input.labelHidden "label"
         }
 
