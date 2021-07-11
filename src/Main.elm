@@ -239,7 +239,7 @@ bodyContent model =
 footerContent : Element msg
 footerContent =
     row [ width fill, paddingXY 40 20, centerX ]
-        [ column [ centerX ] [ text "sdia.pyc@gmail.com" ]
+        [ column [] [ text "sdia.pyc@gmail.com" ]
         ]
 
 
@@ -273,6 +273,58 @@ viewInput model hint current_answer answers toMsg =
 
             else
                 current_answer
+
+        show_continue_message =
+            if model.current_answer_status == Correct then
+                el
+                    [ Font.color gray_light
+                    , Font.size 15
+                    , moveUp 10
+                    , alignRight
+                    ]
+                    (text "excellent!, press enter to continue")
+
+            else
+                Element.none
+
+        show_alternative_answers =
+            if model.current_answer_status == Correct then
+                if List.length answers <= 1 then
+                    Element.none
+
+                else
+                    let
+                        answers_not_selected =
+                            List.filter
+                                (\o ->
+                                    if o == current_answer then
+                                        False
+
+                                    else
+                                        True
+                                )
+                                answers
+                    in
+                    row
+                        [ Font.size 15
+                        , moveDown 10
+
+                        -- , explain Debug.todo
+                        ]
+                        [ column
+                            [ alignTop, Font.color gray_light ]
+                            [ text "alternative solution    " ]
+                        , column []
+                            (answers_not_selected
+                                |> List.map (\o -> "~$ " ++ o)
+                                |> List.map text
+                                |> List.map (\o -> [ o ])
+                                |> List.map (\o -> row [ Font.color teal ] o)
+                            )
+                        ]
+
+            else
+                Element.none
     in
     -- input
     Input.text
@@ -284,18 +336,10 @@ viewInput model hint current_answer answers toMsg =
             [ Font.typeface "IBM Plex Mono"
             , Font.monospace
             ]
+        , above
+            show_continue_message
         , below
-            (if model.current_answer_status == Correct then
-                el
-                    [ Font.color gray_light
-                    , Font.size 15
-                    , moveDown 10
-                    ]
-                    (text "excellent!, press enter to continue")
-
-             else
-                Element.none
-            )
+            show_alternative_answers
         ]
         { onChange = toMsg --\o -> toMsg o
         , text = answer_to_show
