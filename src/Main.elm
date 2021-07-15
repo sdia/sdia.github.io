@@ -1,6 +1,6 @@
 module Main exposing (Model, Msg(..), init, main, update, view)
 
-import Browser
+import Browser exposing (Document)
 import ColorSummer exposing (..)
 import Element exposing (..)
 import Element.Background as Background
@@ -39,11 +39,11 @@ type AnswerStatus
 
 
 main =
-    Browser.element
+    Browser.document
         { init = init
+        , view = view
         , update = update
         , subscriptions = subscriptions
-        , view = view
         }
 
 
@@ -144,23 +144,33 @@ update msg model =
                 ( model, Cmd.none )
 
 
-view : Model -> Html Msg
+view : Model -> Document Msg
 view model =
-    layout [] <|
-        column
-            [ width fill
-            , height fill
-            , Font.family
-                [ Font.typeface "IBM Plex Mono"
-                , Font.monospace
-                ]
+    let
+        title =
+            "Daily dose of git"
 
-            -- , explain Debug.todo
+        body =
+            [ layout [] <|
+                column
+                    [ width fill
+                    , height fill
+                    , Font.family
+                        [ Font.typeface "IBM Plex Mono"
+                        , Font.monospace
+                        ]
+
+                    -- , explain Debug.todo
+                    ]
+                    [ navBar
+                    , bodyContent model
+                    , footerContent
+                    ]
             ]
-            [ navBar
-            , bodyContent model
-            , footerContent
-            ]
+    in
+    { title = title
+    , body = body
+    }
 
 
 navBar : Element msg

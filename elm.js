@@ -5220,7 +5220,7 @@ var $elm$core$Task$perform = F2(
 		return $elm$core$Task$command(
 			A2($elm$core$Task$map, toMessage, task));
 	});
-var $elm$browser$Browser$element = _Browser_element;
+var $elm$browser$Browser$document = _Browser_document;
 var $author$project$Main$NewQuestion = function (a) {
 	return {$: 0, a: a};
 };
@@ -13568,30 +13568,35 @@ var $author$project$Main$navBar = A2(
 				]))
 		]));
 var $author$project$Main$view = function (model) {
-	return A2(
-		$mdgriffith$elm_ui$Element$layout,
-		_List_Nil,
-		A2(
-			$mdgriffith$elm_ui$Element$column,
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
-					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
-					$mdgriffith$elm_ui$Element$Font$family(
-					_List_fromArray(
-						[
-							$mdgriffith$elm_ui$Element$Font$typeface('IBM Plex Mono'),
-							$mdgriffith$elm_ui$Element$Font$monospace
-						]))
-				]),
-			_List_fromArray(
-				[
-					$author$project$Main$navBar,
-					$author$project$Main$bodyContent(model),
-					$author$project$Main$footerContent
-				])));
+	var title = 'Daily dose of git';
+	var body = _List_fromArray(
+		[
+			A2(
+			$mdgriffith$elm_ui$Element$layout,
+			_List_Nil,
+			A2(
+				$mdgriffith$elm_ui$Element$column,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+						$mdgriffith$elm_ui$Element$Font$family(
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Font$typeface('IBM Plex Mono'),
+								$mdgriffith$elm_ui$Element$Font$monospace
+							]))
+					]),
+				_List_fromArray(
+					[
+						$author$project$Main$navBar,
+						$author$project$Main$bodyContent(model),
+						$author$project$Main$footerContent
+					])))
+		]);
+	return {bZ: body, dn: title};
 };
-var $author$project$Main$main = $elm$browser$Browser$element(
+var $author$project$Main$main = $elm$browser$Browser$document(
 	{cv: $author$project$Main$init, c7: $author$project$Main$subscriptions, ds: $author$project$Main$update, dt: $author$project$Main$view});
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$succeed(0))(0)}});}(this));
