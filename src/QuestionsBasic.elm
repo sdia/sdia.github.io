@@ -377,4 +377,8 @@ questions =
         "how to see a logs of HEAD history?"
         "$ >"
         [ "git reflog" ]
+    , Question
+        "how to modify last commit with same message?"
+        "$ >"
+        [ "git commit --amend --no-edit" ]
     ]
