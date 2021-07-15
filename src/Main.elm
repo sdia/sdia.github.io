@@ -176,7 +176,7 @@ view model =
 navBar : Element msg
 navBar =
     row [ width fill, paddingXY 40 20, spacing 20 ]
-        [ column [ alignLeft ] [ text "Git trainer" ]
+        [ column [ alignLeft ] [ text "🥣 daily dose of git" ]
         , column [ alignLeft ] [ text "/resources" ]
         , column [ alignRight ] [ text "/about" ]
         ]

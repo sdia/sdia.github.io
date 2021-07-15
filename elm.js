@@ -13548,7 +13548,7 @@ var $author$project$Main$navBar = A2(
 				[$mdgriffith$elm_ui$Element$alignLeft]),
 			_List_fromArray(
 				[
-					$mdgriffith$elm_ui$Element$text('Git trainer')
+					$mdgriffith$elm_ui$Element$text('🥣 daily dose of git')
 				])),
 			A2(
 			$mdgriffith$elm_ui$Element$column,
