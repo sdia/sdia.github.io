@@ -177,7 +177,8 @@ navBar : Element msg
 navBar =
     row [ width fill, paddingXY 40 20, spacing 20 ]
         [ column [ alignLeft ] [ text "🥣 daily dose of git" ]
-        , column [ alignLeft ] [ text "/resources" ]
+
+        -- , column [ alignLeft ] [ text "/resources" ]
         , column [ alignRight ] [ text "/about" ]
         ]
 
@@ -250,6 +251,7 @@ footerContent : Element msg
 footerContent =
     row [ width fill, paddingXY 40 20, centerX ]
         [ column [] [ text "sdia.pyc@gmail.com" ]
+        , column [ alignRight ] [ text "/resources" ]
         ]
 
 

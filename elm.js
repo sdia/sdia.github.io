@@ -13323,6 +13323,14 @@ var $author$project$Main$footerContent = A2(
 			_List_fromArray(
 				[
 					$mdgriffith$elm_ui$Element$text('sdia.pyc@gmail.com')
+				])),
+			A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_fromArray(
+				[$mdgriffith$elm_ui$Element$alignRight]),
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$text('/resources')
 				]))
 		]));
 var $mdgriffith$elm_ui$Internal$Model$OnlyDynamic = F2(
@@ -13549,14 +13557,6 @@ var $author$project$Main$navBar = A2(
 			_List_fromArray(
 				[
 					$mdgriffith$elm_ui$Element$text('🥣 daily dose of git')
-				])),
-			A2(
-			$mdgriffith$elm_ui$Element$column,
-			_List_fromArray(
-				[$mdgriffith$elm_ui$Element$alignLeft]),
-			_List_fromArray(
-				[
-					$mdgriffith$elm_ui$Element$text('/resources')
 				])),
 			A2(
 			$mdgriffith$elm_ui$Element$column,
