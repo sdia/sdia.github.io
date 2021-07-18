@@ -1,6 +1,6 @@
-module QuestionsBasic exposing (questions)
+module GitUtils.QuestionsBasic exposing (questions)
 
-import Question exposing (Answer, Question)
+import GitUtils.Question as Question exposing (Answer, Question)
 
 
 questions =

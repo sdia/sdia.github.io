@@ -1,4 +1,4 @@
-module ColorSummer exposing (..)
+module GitUtils.ColorSummer exposing (..)
 
 import Element exposing (..)
 

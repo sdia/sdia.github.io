@@ -1,18 +1,39 @@
-module Main exposing (Model, Msg(..), init, main, update, view)
+module Pages.Git exposing (Model, Msg, page)
 
-import Browser exposing (Document)
-import ColorSummer exposing (..)
+-- import Html exposing (Html)
+
 import Element exposing (..)
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
+import Gen.Params.Element exposing (Params)
+import GitUtils.ColorSummer exposing (..)
+import GitUtils.Question as Question exposing (Answer, Question, questionGenerator)
+import GitUtils.QuestionsBasic as QuestionsBasic exposing (questions)
 import Html exposing (Html)
 import Html.Events
 import Json.Decode as Decode
-import Question exposing (Answer, Question, questionGenerator)
-import QuestionsBasic exposing (questions)
+import Page
 import Random
+import Request
+import Shared
+import UI
+import View exposing (View)
+
+
+page : Shared.Model -> Request.With Params -> Page.With Model Msg
+page shared req =
+    Page.element
+        { init = init
+        , update = update
+        , view = view
+        , subscriptions = subscriptions
+        }
+
+
+
+-- INIT
 
 
 type alias Model =
@@ -23,6 +44,28 @@ type alias Model =
     , show_solution : Bool
     , next_question_enabled : Bool
     }
+
+
+init : ( Model, Cmd Msg )
+init =
+    let
+        model =
+            { question = Nothing
+            , feedback = ""
+            , current_answer = ""
+            , current_answer_status = NotCorrect
+            , show_solution = False
+            , next_question_enabled = False
+            }
+    in
+    ( model
+      -- , Cmd.none
+    , Random.generate NewQuestion (questionGenerator questions)
+    )
+
+
+
+-- UPDATE
 
 
 type Msg
@@ -36,15 +79,6 @@ type Msg
 type AnswerStatus
     = Correct
     | NotCorrect
-
-
-main =
-    Browser.document
-        { init = init
-        , view = view
-        , update = update
-        , subscriptions = subscriptions
-        }
 
 
 evaluate_answer : Model -> Answer -> AnswerStatus
@@ -64,24 +98,6 @@ evaluate_answer model answer =
 track_progress_answer : Answer -> List Answer -> Bool
 track_progress_answer current_answer answers =
     List.any (String.startsWith current_answer) answers
-
-
-init : () -> ( Model, Cmd Msg )
-init _ =
-    let
-        model =
-            { question = Nothing
-            , feedback = ""
-            , current_answer = ""
-            , current_answer_status = NotCorrect
-            , show_solution = False
-            , next_question_enabled = False
-            }
-    in
-    ( model
-      -- , Cmd.none
-    , Random.generate NewQuestion (questionGenerator questions)
-    )
 
 
 subscriptions : Model -> Sub Msg
@@ -144,15 +160,27 @@ update msg model =
                 ( model, Cmd.none )
 
 
-view : Model -> Document Msg
+
+-- VIEW
+-- view : Model -> View Msg
+-- view model =
+--     { title = "Git"
+--     , element =
+--         UI.layout
+--             [ row [] [ text "Git" ]
+--             ]
+--     }
+
+
+view : Model -> View Msg
 view model =
     let
         title =
             "Daily dose of git"
 
-        body =
-            [ layout [] <|
-                column
+        element =
+            UI.layout
+                [ column
                     [ width fill
                     , height fill
                     , Font.family
@@ -166,10 +194,10 @@ view model =
                     , bodyContent model
                     , footerContent
                     ]
-            ]
+                ]
     in
     { title = title
-    , body = body
+    , element = element
     }
 
 

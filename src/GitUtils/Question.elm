@@ -1,4 +1,4 @@
-module Question exposing (Answer, Question, questionGenerator)
+module GitUtils.Question exposing (Answer, Question, questionGenerator)
 
 import Random
 
