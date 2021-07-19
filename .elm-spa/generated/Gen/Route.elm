@@ -8,6 +8,7 @@ import Gen.Params.Advanced
 import Gen.Params.Element
 import Gen.Params.Git
 import Gen.Params.Home_
+import Gen.Params.Kubectl
 import Gen.Params.Sandbox
 import Gen.Params.Static
 import Gen.Params.Dynamic.Name_
@@ -21,6 +22,7 @@ type Route
     | Element
     | Git
     | Home_
+    | Kubectl
     | Sandbox
     | Static
     | Dynamic__Name_ { name : String }
@@ -38,6 +40,7 @@ routes =
     , Parser.map Advanced Gen.Params.Advanced.parser
     , Parser.map Element Gen.Params.Element.parser
     , Parser.map Git Gen.Params.Git.parser
+    , Parser.map Kubectl Gen.Params.Kubectl.parser
     , Parser.map Sandbox Gen.Params.Sandbox.parser
     , Parser.map Static Gen.Params.Static.parser
     , Parser.map NotFound Gen.Params.NotFound.parser
@@ -64,6 +67,9 @@ toHref route =
     
         Home_ ->
             joinAsHref []
+    
+        Kubectl ->
+            joinAsHref [ "kubectl" ]
     
         Sandbox ->
             joinAsHref [ "sandbox" ]

@@ -23,7 +23,7 @@ view : Params -> View msg
 view params =
     { title = "Dynamic: " ++ params.name
     , element =
-        UI.layout
+        UI.layout ("Dynamic: " ++ params.name)
             [ UI.h1 "Dynamic Page"
             , row [] [ text params.name ]
             ]

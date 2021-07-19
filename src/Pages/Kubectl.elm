@@ -1,9 +1,9 @@
-module Pages.Sandbox exposing (Model, Msg, page)
+module Pages.Kubectl exposing (Model, Msg, page)
 
 -- import Html exposing (Html)
 
 import Element exposing (..)
-import Gen.Params.Sandbox exposing (Params)
+import Gen.Params.Element exposing (Params)
 import Page
 import Request
 import Shared
@@ -13,10 +13,11 @@ import View exposing (View)
 
 page : Shared.Model -> Request.With Params -> Page.With Model Msg
 page shared req =
-    Page.sandbox
+    Page.element
         { init = init
         , update = update
         , view = view
+        , subscriptions = subscriptions
         }
 
 
@@ -28,9 +29,9 @@ type alias Model =
     {}
 
 
-init : Model
+init : ( Model, Cmd Msg )
 init =
-    {}
+    ( {}, Cmd.none )
 
 
 
@@ -41,26 +42,31 @@ type Msg
     = ReplaceMe
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         ReplaceMe ->
-            model
+            ( model, Cmd.none )
+
+
+
+-- SUBSCRIPTIONS
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    Sub.none
 
 
 
 -- VIEW
--- view : Model -> View Msg
--- view model =
---     View.placeholder "Sandbox"
---
 
 
-view : Model -> View msg
+view : Model -> View Msg
 view model =
-    { title = "Sandbox"
+    { title = "Kubectl"
     , element =
-        UI.layout "Sandbox"
-            [ column [] [ text "Sandbox" ]
+        UI.layout "Kubectl"
+            [ row [] [ text "Kubectl" ]
             ]
     }

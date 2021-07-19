@@ -7,6 +7,7 @@ import Gen.Params.Advanced
 import Gen.Params.Element
 import Gen.Params.Git
 import Gen.Params.Home_
+import Gen.Params.Kubectl
 import Gen.Params.Sandbox
 import Gen.Params.Static
 import Gen.Params.Dynamic.Name_
@@ -19,6 +20,7 @@ import Pages.Advanced
 import Pages.Element
 import Pages.Git
 import Pages.Home_
+import Pages.Kubectl
 import Pages.Sandbox
 import Pages.Static
 import Pages.Dynamic.Name_
@@ -53,6 +55,9 @@ init route =
         Route.Home_ ->
             pages.home_.init ()
     
+        Route.Kubectl ->
+            pages.kubectl.init ()
+    
         Route.Sandbox ->
             pages.sandbox.init ()
     
@@ -77,6 +82,9 @@ update msg_ model_ =
     
         ( Msg.Git msg, Model.Git params model ) ->
             pages.git.update params msg model
+    
+        ( Msg.Kubectl msg, Model.Kubectl params model ) ->
+            pages.kubectl.update params msg model
     
         ( Msg.Sandbox msg, Model.Sandbox params model ) ->
             pages.sandbox.update params msg model
@@ -109,6 +117,9 @@ view model_ =
         Model.Home_ params ->
             pages.home_.view params ()
     
+        Model.Kubectl params model ->
+            pages.kubectl.view params model
+    
         Model.Sandbox params model ->
             pages.sandbox.view params model
     
@@ -140,6 +151,9 @@ subscriptions model_ =
         Model.Home_ params ->
             pages.home_.subscriptions params ()
     
+        Model.Kubectl params model ->
+            pages.kubectl.subscriptions params model
+    
         Model.Sandbox params model ->
             pages.sandbox.subscriptions params model
     
@@ -162,6 +176,7 @@ pages :
     , element : Bundle Gen.Params.Element.Params Pages.Element.Model Pages.Element.Msg
     , git : Bundle Gen.Params.Git.Params Pages.Git.Model Pages.Git.Msg
     , home_ : Static Gen.Params.Home_.Params
+    , kubectl : Bundle Gen.Params.Kubectl.Params Pages.Kubectl.Model Pages.Kubectl.Msg
     , sandbox : Bundle Gen.Params.Sandbox.Params Pages.Sandbox.Model Pages.Sandbox.Msg
     , static : Bundle Gen.Params.Static.Params () Never
     , dynamic__name_ : Bundle Gen.Params.Dynamic.Name_.Params () Never
@@ -172,6 +187,7 @@ pages =
     , element = bundle Pages.Element.page Model.Element Msg.Element
     , git = bundle Pages.Git.page Model.Git Msg.Git
     , home_ = static Pages.Home_.view Model.Home_
+    , kubectl = bundle Pages.Kubectl.page Model.Kubectl Msg.Kubectl
     , sandbox = bundle Pages.Sandbox.page Model.Sandbox Msg.Sandbox
     , static = bundle Pages.Static.page Model.Static Msg.Static
     , dynamic__name_ = bundle Pages.Dynamic.Name_.page Model.Dynamic__Name_ Msg.Dynamic__Name_

@@ -176,23 +176,39 @@ view : Model -> View Msg
 view model =
     let
         title =
-            "🥣 daily dose of git"
+            "Daily dose of git"
 
         element =
-            UI.layout title
+            UI.layout
                 [ column
                     [ width fill
                     , height fill
+                    , Font.family
+                        [ Font.typeface "IBM Plex Mono"
+                        , Font.monospace
+                        ]
 
                     -- , explain Debug.todo
                     ]
-                    [ bodyContent model
+                    [ navBar
+                    , bodyContent model
+                    , footerContent
                     ]
                 ]
     in
     { title = title
     , element = element
     }
+
+
+navBar : Element msg
+navBar =
+    row [ width fill, paddingXY 40 20, spacing 20 ]
+        [ column [ alignLeft ] [ text "🥣 daily dose of git" ]
+
+        -- , column [ alignLeft ] [ text "/resources" ]
+        , column [ alignRight ] [ text "/about" ]
+        ]
 
 
 bodyContent : Model -> Element Msg
@@ -257,6 +273,14 @@ bodyContent model =
 
         Nothing ->
             column [] [ text "no questions today :(" ]
+
+
+footerContent : Element msg
+footerContent =
+    row [ width fill, paddingXY 40 20, centerX ]
+        [ column [] [ text "sdia.pyc@gmail.com" ]
+        , column [ alignRight ] [ text "/resources" ]
+        ]
 
 
 viewInput : Model -> String -> String -> List Answer -> (String -> Msg) -> Element Msg

@@ -22,7 +22,7 @@ view : View msg
 view =
     { title = "Static"
     , element =
-        UI.layout
+        UI.layout "Static"
             [ column [] [ text "Static" ]
             ]
     }

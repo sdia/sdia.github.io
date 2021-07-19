@@ -66,7 +66,7 @@ view : Model -> View Msg
 view model =
     { title = "Element"
     , element =
-        UI.layout
+        UI.layout "Element"
             [ row [] [ text "Element" ]
             ]
     }
