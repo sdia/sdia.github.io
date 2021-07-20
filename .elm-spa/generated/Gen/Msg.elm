@@ -3,6 +3,7 @@ module Gen.Msg exposing (Msg(..))
 import Gen.Params.Advanced
 import Gen.Params.Element
 import Gen.Params.Git
+import Gen.Params.Helm
 import Gen.Params.Home_
 import Gen.Params.Kubectl
 import Gen.Params.Sandbox
@@ -12,6 +13,7 @@ import Gen.Params.NotFound
 import Pages.Advanced
 import Pages.Element
 import Pages.Git
+import Pages.Helm
 import Pages.Home_
 import Pages.Kubectl
 import Pages.Sandbox
@@ -24,6 +26,7 @@ type Msg
     = Advanced Pages.Advanced.Msg
     | Element Pages.Element.Msg
     | Git Pages.Git.Msg
+    | Helm Pages.Helm.Msg
     | Kubectl Pages.Kubectl.Msg
     | Sandbox Pages.Sandbox.Msg
     | Static Never

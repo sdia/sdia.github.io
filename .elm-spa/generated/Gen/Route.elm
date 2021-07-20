@@ -7,6 +7,7 @@ module Gen.Route exposing
 import Gen.Params.Advanced
 import Gen.Params.Element
 import Gen.Params.Git
+import Gen.Params.Helm
 import Gen.Params.Home_
 import Gen.Params.Kubectl
 import Gen.Params.Sandbox
@@ -21,6 +22,7 @@ type Route
     = Advanced
     | Element
     | Git
+    | Helm
     | Home_
     | Kubectl
     | Sandbox
@@ -40,6 +42,7 @@ routes =
     , Parser.map Advanced Gen.Params.Advanced.parser
     , Parser.map Element Gen.Params.Element.parser
     , Parser.map Git Gen.Params.Git.parser
+    , Parser.map Helm Gen.Params.Helm.parser
     , Parser.map Kubectl Gen.Params.Kubectl.parser
     , Parser.map Sandbox Gen.Params.Sandbox.parser
     , Parser.map Static Gen.Params.Static.parser
@@ -64,6 +67,9 @@ toHref route =
     
         Git ->
             joinAsHref [ "git" ]
+    
+        Helm ->
+            joinAsHref [ "helm" ]
     
         Home_ ->
             joinAsHref []

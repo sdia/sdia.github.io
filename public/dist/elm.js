@@ -10849,6 +10849,7 @@ var $author$project$Gen$Route$Dynamic__Name_ = function (a) {
 };
 var $author$project$Gen$Route$Element = {$: 'Element'};
 var $author$project$Gen$Route$Git = {$: 'Git'};
+var $author$project$Gen$Route$Helm = {$: 'Helm'};
 var $author$project$Gen$Route$Home_ = {$: 'Home_'};
 var $author$project$Gen$Route$Kubectl = {$: 'Kubectl'};
 var $author$project$Gen$Route$Sandbox = {$: 'Sandbox'};
@@ -10970,6 +10971,7 @@ var $author$project$Gen$Params$Dynamic$Name_$parser = A2(
 		$elm$url$Url$Parser$string));
 var $author$project$Gen$Params$Element$parser = $elm$url$Url$Parser$s('element');
 var $author$project$Gen$Params$Git$parser = $elm$url$Url$Parser$s('git');
+var $author$project$Gen$Params$Helm$parser = $elm$url$Url$Parser$s('helm');
 var $elm$url$Url$Parser$top = $elm$url$Url$Parser$Parser(
 	function (state) {
 		return _List_fromArray(
@@ -10986,6 +10988,7 @@ var $author$project$Gen$Route$routes = _List_fromArray(
 		A2($elm$url$Url$Parser$map, $author$project$Gen$Route$Advanced, $author$project$Gen$Params$Advanced$parser),
 		A2($elm$url$Url$Parser$map, $author$project$Gen$Route$Element, $author$project$Gen$Params$Element$parser),
 		A2($elm$url$Url$Parser$map, $author$project$Gen$Route$Git, $author$project$Gen$Params$Git$parser),
+		A2($elm$url$Url$Parser$map, $author$project$Gen$Route$Helm, $author$project$Gen$Params$Helm$parser),
 		A2($elm$url$Url$Parser$map, $author$project$Gen$Route$Kubectl, $author$project$Gen$Params$Kubectl$parser),
 		A2($elm$url$Url$Parser$map, $author$project$Gen$Route$Sandbox, $author$project$Gen$Params$Sandbox$parser),
 		A2($elm$url$Url$Parser$map, $author$project$Gen$Route$Static, $author$project$Gen$Params$Static$parser),
@@ -11033,6 +11036,13 @@ var $author$project$Gen$Model$Git = F2(
 	});
 var $author$project$Gen$Msg$Git = function (a) {
 	return {$: 'Git', a: a};
+};
+var $author$project$Gen$Model$Helm = F2(
+	function (a, b) {
+		return {$: 'Helm', a: a, b: b};
+	});
+var $author$project$Gen$Msg$Helm = function (a) {
+	return {$: 'Helm', a: a};
 };
 var $author$project$Gen$Model$Home_ = function (a) {
 	return {$: 'Home_', a: a};
@@ -11276,6 +11286,10 @@ var $author$project$Gen$Route$toHref = function (route) {
 			return joinAsHref(
 				_List_fromArray(
 					['git']));
+		case 'Helm':
+			return joinAsHref(
+				_List_fromArray(
+					['helm']));
 		case 'Home_':
 			return joinAsHref(_List_Nil);
 		case 'Kubectl':
@@ -17089,7 +17103,8 @@ var $author$project$UI$layout = F2(
 							$mdgriffith$elm_ui$Element$spacing(20),
 							A2($mdgriffith$elm_ui$Element$Border$widthXY, 0, 1),
 							$mdgriffith$elm_ui$Element$Border$color(
-							A3($mdgriffith$elm_ui$Element$rgb255, 186, 186, 186))
+							A3($mdgriffith$elm_ui$Element$rgb255, 186, 186, 186)),
+							$mdgriffith$elm_ui$Element$Font$size(15)
 						]),
 					_List_fromArray(
 						[
@@ -17105,7 +17120,7 @@ var $author$project$UI$layout = F2(
 										[$mdgriffith$elm_ui$Element$alignLeft]),
 									_List_fromArray(
 										[
-											A2(viewLink, '/home', $author$project$Gen$Route$Home_)
+											A2(viewLink, 'about', $author$project$Gen$Route$Home_)
 										])),
 									A2(
 									$mdgriffith$elm_ui$Element$row,
@@ -17113,7 +17128,7 @@ var $author$project$UI$layout = F2(
 										[$mdgriffith$elm_ui$Element$alignLeft]),
 									_List_fromArray(
 										[
-											A2(viewLink, '/git', $author$project$Gen$Route$Git)
+											A2(viewLink, 'git', $author$project$Gen$Route$Git)
 										])),
 									A2(
 									$mdgriffith$elm_ui$Element$row,
@@ -17121,7 +17136,15 @@ var $author$project$UI$layout = F2(
 										[$mdgriffith$elm_ui$Element$alignLeft]),
 									_List_fromArray(
 										[
-											A2(viewLink, '/kubectl', $author$project$Gen$Route$Kubectl)
+											A2(viewLink, 'kubectl', $author$project$Gen$Route$Kubectl)
+										])),
+									A2(
+									$mdgriffith$elm_ui$Element$row,
+									_List_fromArray(
+										[$mdgriffith$elm_ui$Element$alignLeft]),
+									_List_fromArray(
+										[
+											A2(viewLink, 'helm', $author$project$Gen$Route$Helm)
 										]))
 								]))
 						]))
@@ -19458,33 +19481,1610 @@ var $author$project$Pages$Git$page = F2(
 		return $author$project$Page$element(
 			{init: $author$project$Pages$Git$init, subscriptions: $author$project$Pages$Git$subscriptions, update: $author$project$Pages$Git$update, view: $author$project$Pages$Git$view});
 	});
-var $author$project$Pages$Kubectl$init = _Utils_Tuple2(
-	{},
-	$elm$core$Platform$Cmd$none);
-var $author$project$Pages$Kubectl$subscriptions = function (model) {
+var $author$project$Pages$Helm$NewQuestion = function (a) {
+	return {$: 'NewQuestion', a: a};
+};
+var $author$project$Pages$Helm$NotCorrect = {$: 'NotCorrect'};
+var $author$project$HelmUtils$Question$Question = F3(
+	function (question, hint, answers) {
+		return {answers: answers, hint: hint, question: question};
+	});
+var $author$project$HelmUtils$Question$dumbQuestion = A3(
+	$author$project$HelmUtils$Question$Question,
+	'who is the creator of git?',
+	'',
+	_List_fromArray(
+		['Linus Torvalds']));
+var $author$project$HelmUtils$Question$questionGenerator = function (questions) {
+	return A2($elm$random$Random$uniform, $author$project$HelmUtils$Question$dumbQuestion, questions);
+};
+var $author$project$HelmUtils$QuestionsBasic$questions = _List_fromArray(
+	[
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to install the chart c/redis with release name rname?',
+		'$ >',
+		_List_fromArray(
+			['helm install rname c/redis'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to install the chart c/redis with release name rname in the namespace ns?',
+		'$ >',
+		_List_fromArray(
+			['helm install rname c/redis --namespace ns', 'helm install rname c/redis -n ns'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to install the chart c/redis with release name rname and override the default values with values.yaml?',
+		'$ >',
+		_List_fromArray(
+			['helm install rname c/redis --values values.yaml'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to run a test install of c/redis named rname to validate and verify the chart?',
+		'$ >',
+		_List_fromArray(
+			['helm install rname c/redis --dry-run --debug'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to upgrade the release named rname of c/redis',
+		'$ >',
+		_List_fromArray(
+			['helm upgrade rname c/redis'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to rollback changes if the upgrade fails?',
+		'$ >',
+		_List_fromArray(
+			['helm upgrade rname c/redis --atomic'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'How to upgrade a release and if it does not exist on the system, install it?',
+		'$ >',
+		_List_fromArray(
+			['helm upgrade rname c/redis --install'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'How to upgrade to the specified version 1.0?',
+		'$ >',
+		_List_fromArray(
+			['helm upgrade rname c/redis --version 1.0'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'How to roll back to the previous release?',
+		'$ >',
+		_List_fromArray(
+			['helm rollback rname [revision]'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'How to roll back to a specific revision 3?',
+		'$ >',
+		_List_fromArray(
+			['helm rollback rname 3'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to download all the release information?',
+		'$ >',
+		_List_fromArray(
+			['helm get all rname'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to download all hooks of the release?',
+		'$ >',
+		_List_fromArray(
+			['helm get hooks rname'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to download the manifestof the release?',
+		'$ >',
+		_List_fromArray(
+			['helm get manifest rname'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to download the notes of the release?',
+		'$ >',
+		_List_fromArray(
+			['helm get notes rname'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to download the values file of the release?',
+		'$ >',
+		_List_fromArray(
+			['helm get values rname'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to fetch release history?',
+		'$ >',
+		_List_fromArray(
+			['helm history rname'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to add a repository from the url https://repo.io and give it the name minio?',
+		'$ >',
+		_List_fromArray(
+			['helm repo add minio https://repo.io'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'How to remove the repository miniofrom your system?',
+		'$ >',
+		_List_fromArray(
+			['helm repo remove minio'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to update repositories?',
+		'$ >',
+		_List_fromArray(
+			['helm repo update'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to list chart repositories?',
+		'$ >',
+		_List_fromArray(
+			['helm repo list'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'Generate an index file containing charts found in the current directory?',
+		'$ >',
+		_List_fromArray(
+			['helm repo index'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to search charts for the keyword bob?',
+		'$ >',
+		_List_fromArray(
+			['helm search bob'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to search repositories for the keyword bob?',
+		'$ >',
+		_List_fromArray(
+			['helm search repo bob'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'How to search Helm Hub for the keyword bob?',
+		'$ >',
+		_List_fromArray(
+			['helm search hub bob'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to list all available releases in the current namespace?',
+		'$ >',
+		_List_fromArray(
+			['helm list'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to list all available releases across all namespaces?',
+		'$ >',
+		_List_fromArray(
+			['helm list --all-namespaces'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to list all releases in the specific namespace ns?',
+		'$ >',
+		_List_fromArray(
+			['helm list --namespace ns'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to list all releases in a specified output format xxx?',
+		'$ >',
+		_List_fromArray(
+			['helm list --output xxx'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to apply a filter to the list of releases using regular expressions *.bob.*?',
+		'$ >',
+		_List_fromArray(
+			['helm list --filter \'*.bob.*\''])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to see the status of a specific release rname?',
+		'$ >',
+		_List_fromArray(
+			['helm status rname'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to display the release history of the release rname?',
+		'$ >',
+		_List_fromArray(
+			['helm history rname'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'How to see information about the Helm client environment?',
+		'$ >',
+		_List_fromArray(
+			['helm env'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to install plugins abc/url1 and abc/url2?',
+		'$ >',
+		_List_fromArray(
+			['helm plugin install abc/url1 abc/url2'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to view a list of all installed plugins?',
+		'$ >',
+		_List_fromArray(
+			['helm plugin list'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to update plugin alice and plugin bob?',
+		'$ >',
+		_List_fromArray(
+			['helm plugin update alice bob'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to create a directory containing the common chart files and directories?',
+		'$ >',
+		_List_fromArray(
+			['helm create rname'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to package a chart located at path/chart into a chart archive?',
+		'$ >',
+		_List_fromArray(
+			['helm package  path/chart/'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to run tests to examine a chart and identify possible issues?',
+		'$ >',
+		_List_fromArray(
+			['helm lint c/redis'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to inspect a chart and list its contents?',
+		'$ >',
+		_List_fromArray(
+			['helm show all c/redis'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to display a chart definition?',
+		'$ >',
+		_List_fromArray(
+			['helm show chart c/redis'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to display the chart’s values?',
+		'$ >',
+		_List_fromArray(
+			['helm show values c/redis'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to download a chart?',
+		'$ >',
+		_List_fromArray(
+			['helm pull c/redis'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to download a chart and extract the archive’s contents into a directory /tmp/dir/?',
+		'$ >',
+		_List_fromArray(
+			['helm pull c/redis --untar --untardir /tmp/dir/'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to display a list of a chart’s dependencies?',
+		'$ >',
+		_List_fromArray(
+			['helm dependency list c/redis'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to display the general help output for Helm?',
+		'$ >',
+		_List_fromArray(
+			['helm --help'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to show help for a particular helm command abc?',
+		'$ >',
+		_List_fromArray(
+			['helm abc --help'])),
+		A3(
+		$author$project$HelmUtils$Question$Question,
+		'how to see the installed version of Helm?',
+		'$ >',
+		_List_fromArray(
+			['helm version']))
+	]);
+var $author$project$Pages$Helm$init = function () {
+	var model = {current_answer: '', current_answer_status: $author$project$Pages$Helm$NotCorrect, feedback: '', next_question_enabled: false, question: $elm$core$Maybe$Nothing, show_solution: false};
+	return _Utils_Tuple2(
+		model,
+		A2(
+			$elm$random$Random$generate,
+			$author$project$Pages$Helm$NewQuestion,
+			$author$project$HelmUtils$Question$questionGenerator($author$project$HelmUtils$QuestionsBasic$questions)));
+}();
+var $author$project$Pages$Helm$subscriptions = function (model) {
 	return $elm$core$Platform$Sub$none;
 };
-var $author$project$Pages$Kubectl$update = F2(
-	function (msg, model) {
-		return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+var $author$project$Pages$Helm$Correct = {$: 'Correct'};
+var $author$project$Pages$Helm$evaluate_answer = F2(
+	function (model, answer) {
+		var _v0 = model.question;
+		if (_v0.$ === 'Just') {
+			var question = _v0.a;
+			return A2($elm$core$List$member, answer, question.answers) ? $author$project$Pages$Helm$Correct : $author$project$Pages$Helm$NotCorrect;
+		} else {
+			return $author$project$Pages$Helm$NotCorrect;
+		}
 	});
-var $author$project$Pages$Kubectl$view = function (model) {
-	return {
-		element: A2(
-			$author$project$UI$layout,
-			'Kubectl',
+var $author$project$Pages$Helm$update = F2(
+	function (msg, model) {
+		switch (msg.$) {
+			case 'Next':
+				return _Utils_Tuple2(
+					model,
+					A2(
+						$elm$random$Random$generate,
+						$author$project$Pages$Helm$NewQuestion,
+						$author$project$HelmUtils$Question$questionGenerator($author$project$HelmUtils$QuestionsBasic$questions)));
+			case 'NewQuestion':
+				var q = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							current_answer: '',
+							current_answer_status: $author$project$Pages$Helm$NotCorrect,
+							next_question_enabled: false,
+							question: $elm$core$Maybe$Just(q),
+							show_solution: false
+						}),
+					$elm$core$Platform$Cmd$none);
+			case 'Answer':
+				var answer = msg.a;
+				var _v1 = model.current_answer_status;
+				if (_v1.$ === 'NotCorrect') {
+					return _Utils_Tuple2(
+						_Utils_update(
+							model,
+							{
+								current_answer: answer,
+								current_answer_status: A2($author$project$Pages$Helm$evaluate_answer, model, answer)
+							}),
+						$elm$core$Platform$Cmd$none);
+				} else {
+					return _Utils_Tuple2(
+						_Utils_update(
+							model,
+							{next_question_enabled: true}),
+						$elm$core$Platform$Cmd$none);
+				}
+			case 'ShowSolution':
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{next_question_enabled: true, show_solution: true}),
+					$elm$core$Platform$Cmd$none);
+			default:
+				return _Utils_eq(model.current_answer_status, $author$project$Pages$Helm$Correct) ? _Utils_Tuple2(
+					model,
+					A2(
+						$elm$random$Random$generate,
+						$author$project$Pages$Helm$NewQuestion,
+						$author$project$HelmUtils$Question$questionGenerator($author$project$HelmUtils$QuestionsBasic$questions))) : _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+		}
+	});
+var $author$project$Pages$Helm$Answer = function (a) {
+	return {$: 'Answer', a: a};
+};
+var $author$project$Pages$Helm$Next = {$: 'Next'};
+var $author$project$Pages$Helm$ShowSolution = {$: 'ShowSolution'};
+var $author$project$Pages$Helm$capitalizeString = function (s) {
+	var ts = $elm$core$String$trim(s);
+	var tail_s = A2($elm$core$String$dropLeft, 1, ts);
+	var head_s = $elm$core$String$toUpper(
+		A2($elm$core$String$left, 1, ts));
+	return _Utils_ap(head_s, tail_s);
+};
+var $author$project$HelmUtils$ColorSummer$red = A3($mdgriffith$elm_ui$Element$rgb255, 223, 82, 107);
+var $author$project$HelmUtils$ColorSummer$teal = A3($mdgriffith$elm_ui$Element$rgb255, 77, 188, 198);
+var $author$project$Pages$Helm$EnterWasPressed = {$: 'EnterWasPressed'};
+var $author$project$HelmUtils$ColorSummer$gray_dark = A3($mdgriffith$elm_ui$Element$rgb255, 124, 127, 135);
+var $author$project$HelmUtils$ColorSummer$gray_light = A3($mdgriffith$elm_ui$Element$rgb255, 186, 186, 186);
+var $author$project$HelmUtils$ColorSummer$green = A3($mdgriffith$elm_ui$Element$rgb255, 90, 167, 148);
+var $author$project$Pages$Helm$onEnter = function (msg) {
+	return $mdgriffith$elm_ui$Element$htmlAttribute(
+		A2(
+			$elm$html$Html$Events$on,
+			'keyup',
+			A2(
+				$elm$json$Json$Decode$andThen,
+				function (key) {
+					return (key === 'Enter') ? $elm$json$Json$Decode$succeed(msg) : $elm$json$Json$Decode$fail('Not the enter key');
+				},
+				A2($elm$json$Json$Decode$field, 'key', $elm$json$Json$Decode$string))));
+};
+var $author$project$Pages$Helm$track_progress_answer = F2(
+	function (current_answer, answers) {
+		return A2(
+			$elm$core$List$any,
+			$elm$core$String$startsWith(current_answer),
+			answers);
+	});
+var $author$project$Pages$Helm$viewInput = F5(
+	function (model, hint, current_answer, answers, toMsg) {
+		var show_continue_message = _Utils_eq(model.current_answer_status, $author$project$Pages$Helm$Correct) ? A2(
+			$mdgriffith$elm_ui$Element$el,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$Font$color($author$project$HelmUtils$ColorSummer$gray_light),
+					$mdgriffith$elm_ui$Element$Font$size(15),
+					$mdgriffith$elm_ui$Element$moveUp(10),
+					$mdgriffith$elm_ui$Element$alignRight
+				]),
+			$mdgriffith$elm_ui$Element$text('excellent!, press enter to continue')) : $mdgriffith$elm_ui$Element$none;
+		var show_alternative_answers = function () {
+			if (_Utils_eq(model.current_answer_status, $author$project$Pages$Helm$Correct)) {
+				if ($elm$core$List$length(answers) <= 1) {
+					return $mdgriffith$elm_ui$Element$none;
+				} else {
+					var answers_not_selected = A2(
+						$elm$core$List$filter,
+						function (o) {
+							return _Utils_eq(o, current_answer) ? false : true;
+						},
+						answers);
+					return A2(
+						$mdgriffith$elm_ui$Element$row,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Font$size(15),
+								$mdgriffith$elm_ui$Element$moveDown(10)
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$mdgriffith$elm_ui$Element$column,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$alignTop,
+										$mdgriffith$elm_ui$Element$Font$color($author$project$HelmUtils$ColorSummer$gray_light)
+									]),
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$text('alternative solution    ')
+									])),
+								A2(
+								$mdgriffith$elm_ui$Element$column,
+								_List_Nil,
+								A2(
+									$elm$core$List$map,
+									function (o) {
+										return A2(
+											$mdgriffith$elm_ui$Element$row,
+											_List_fromArray(
+												[
+													$mdgriffith$elm_ui$Element$Font$color($author$project$HelmUtils$ColorSummer$teal)
+												]),
+											o);
+									},
+									A2(
+										$elm$core$List$map,
+										function (o) {
+											return _List_fromArray(
+												[o]);
+										},
+										A2(
+											$elm$core$List$map,
+											$mdgriffith$elm_ui$Element$text,
+											A2(
+												$elm$core$List$map,
+												function (o) {
+													return '~$ ' + o;
+												},
+												answers_not_selected)))))
+							]));
+				}
+			} else {
+				return $mdgriffith$elm_ui$Element$none;
+			}
+		}();
+		var dStyle = function () {
+			var answer_status = A2($author$project$Pages$Helm$evaluate_answer, model, current_answer);
+			if (answer_status.$ === 'Correct') {
+				return $mdgriffith$elm_ui$Element$Font$color($author$project$HelmUtils$ColorSummer$green);
+			} else {
+				return A2($author$project$Pages$Helm$track_progress_answer, current_answer, answers) ? $mdgriffith$elm_ui$Element$Font$color($author$project$HelmUtils$ColorSummer$gray_dark) : $mdgriffith$elm_ui$Element$Font$color($author$project$HelmUtils$ColorSummer$red);
+			}
+		}();
+		var answer_to_show = function () {
+			if (model.show_solution) {
+				var _v0 = $elm$core$List$head(answers);
+				if (_v0.$ === 'Just') {
+					var answer = _v0.a;
+					return answer;
+				} else {
+					return 'could not find answer :(';
+				}
+			} else {
+				return current_answer;
+			}
+		}();
+		return A2(
+			$mdgriffith$elm_ui$Element$Input$text,
+			_List_fromArray(
+				[
+					dStyle,
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+					$author$project$Pages$Helm$onEnter($author$project$Pages$Helm$EnterWasPressed),
+					$mdgriffith$elm_ui$Element$centerX,
+					$mdgriffith$elm_ui$Element$Font$family(
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$Font$typeface('IBM Plex Mono'),
+							$mdgriffith$elm_ui$Element$Font$monospace
+						])),
+					$mdgriffith$elm_ui$Element$above(show_continue_message),
+					$mdgriffith$elm_ui$Element$below(show_alternative_answers)
+				]),
+			{
+				label: $mdgriffith$elm_ui$Element$Input$labelHidden('label'),
+				onChange: toMsg,
+				placeholder: $elm$core$Maybe$Just(
+					A2(
+						$mdgriffith$elm_ui$Element$Input$placeholder,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Font$color($author$project$HelmUtils$ColorSummer$gray_light)
+							]),
+						$mdgriffith$elm_ui$Element$text(hint))),
+				text: answer_to_show
+			});
+	});
+var $author$project$Pages$Helm$bodyContent = function (model) {
+	var _v0 = model.question;
+	if (_v0.$ === 'Just') {
+		var question = _v0.a;
+		var make_button = F3(
+			function (msg, t, clr) {
+				return A2(
+					$mdgriffith$elm_ui$Element$Input$button,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+							$mdgriffith$elm_ui$Element$Border$width(1),
+							$mdgriffith$elm_ui$Element$Border$rounded(4),
+							A2($mdgriffith$elm_ui$Element$paddingXY, 20, 0),
+							$mdgriffith$elm_ui$Element$Background$color(clr),
+							$mdgriffith$elm_ui$Element$Font$color(
+							A3($mdgriffith$elm_ui$Element$rgb, 1, 1, 1))
+						]),
+					{
+						label: $mdgriffith$elm_ui$Element$text(t),
+						onPress: $elm$core$Maybe$Just(msg)
+					});
+			});
+		var input_button_show_next = _Utils_eq(model.current_answer_status, $author$project$Pages$Helm$Correct) ? A3(make_button, $author$project$Pages$Helm$Next, 'next >', $author$project$HelmUtils$ColorSummer$teal) : (model.show_solution ? A3(make_button, $author$project$Pages$Helm$Next, 'next >', $author$project$HelmUtils$ColorSummer$teal) : A3(make_button, $author$project$Pages$Helm$ShowSolution, 'show', $author$project$HelmUtils$ColorSummer$red));
+		return A2(
+			$mdgriffith$elm_ui$Element$row,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+				]),
 			_List_fromArray(
 				[
 					A2(
-					$mdgriffith$elm_ui$Element$row,
-					_List_Nil,
+					$mdgriffith$elm_ui$Element$column,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$text('Kubectl')
-						]))
-				])),
-		title: 'Kubectl'
-	};
+							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+						]),
+					_List_Nil),
+					A2(
+					$mdgriffith$elm_ui$Element$column,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$width(
+							$mdgriffith$elm_ui$Element$px(750)),
+							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$mdgriffith$elm_ui$Element$row,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$centerX,
+									$mdgriffith$elm_ui$Element$centerY,
+									A2($mdgriffith$elm_ui$Element$paddingXY, 20, 50),
+									$mdgriffith$elm_ui$Element$Font$size(30)
+								]),
+							_List_fromArray(
+								[
+									A2(
+									$mdgriffith$elm_ui$Element$paragraph,
+									_List_Nil,
+									_List_fromArray(
+										[
+											$mdgriffith$elm_ui$Element$text(
+											$author$project$Pages$Helm$capitalizeString(question.question))
+										]))
+								])),
+							A2(
+							$mdgriffith$elm_ui$Element$row,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$centerX,
+									$mdgriffith$elm_ui$Element$centerY,
+									$mdgriffith$elm_ui$Element$padding(10),
+									$mdgriffith$elm_ui$Element$width(
+									$mdgriffith$elm_ui$Element$px(750)),
+									$mdgriffith$elm_ui$Element$spacing(20)
+								]),
+							_List_fromArray(
+								[
+									A5($author$project$Pages$Helm$viewInput, model, question.hint, model.current_answer, question.answers, $author$project$Pages$Helm$Answer),
+									input_button_show_next
+								]))
+						])),
+					A2(
+					$mdgriffith$elm_ui$Element$column,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+						]),
+					_List_Nil)
+				]));
+	} else {
+		return A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$text('no questions today :(')
+				]));
+	}
+};
+var $author$project$Pages$Helm$view = function (model) {
+	var title = '⛵ a take at the helm';
+	var element = A2(
+		$author$project$UI$layout,
+		title,
+		_List_fromArray(
+			[
+				A2(
+				$mdgriffith$elm_ui$Element$column,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+					]),
+				_List_fromArray(
+					[
+						$author$project$Pages$Helm$bodyContent(model)
+					]))
+			]));
+	return {element: element, title: title};
+};
+var $author$project$Pages$Helm$page = F2(
+	function (shared, req) {
+		return $author$project$Page$element(
+			{init: $author$project$Pages$Helm$init, subscriptions: $author$project$Pages$Helm$subscriptions, update: $author$project$Pages$Helm$update, view: $author$project$Pages$Helm$view});
+	});
+var $author$project$Pages$Kubectl$NewQuestion = function (a) {
+	return {$: 'NewQuestion', a: a};
+};
+var $author$project$Pages$Kubectl$NotCorrect = {$: 'NotCorrect'};
+var $author$project$KubectlUtils$Question$Question = F3(
+	function (question, hint, answers) {
+		return {answers: answers, hint: hint, question: question};
+	});
+var $author$project$KubectlUtils$Question$dumbQuestion = A3(
+	$author$project$KubectlUtils$Question$Question,
+	'who is the creator of git?',
+	'',
+	_List_fromArray(
+		['Linus Torvalds']));
+var $author$project$KubectlUtils$Question$questionGenerator = function (questions) {
+	return A2($elm$random$Random$uniform, $author$project$KubectlUtils$Question$dumbQuestion, questions);
+};
+var $author$project$KubectlUtils$QuestionsBasic$questions = _List_fromArray(
+	[
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to initialize a Git repository (in an existing directory)?',
+		'$ >',
+		_List_fromArray(
+			['git init'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to track file.txt?',
+		'$ >',
+		_List_fromArray(
+			['git add file.txt'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to check files status?',
+		'staged and unstaged',
+		_List_fromArray(
+			['git status'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to stage file.txt?',
+		'$ >',
+		_List_fromArray(
+			['git add file.txt'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to get compact files status?',
+		'staged and unstaged, compact i.e short',
+		_List_fromArray(
+			['git status -s', 'git status --short'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'in which file are declared untracked file pattern?',
+		'things you want to ignore',
+		_List_fromArray(
+			['.gitignore'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to ignore all files with \'a\' extention',
+		'like in my-file.a',
+		_List_fromArray(
+			['*.a'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to not ignore lib.a if .gitignore already has *.a',
+		'logical not in Python',
+		_List_fromArray(
+			['!lib.a'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to ignore the TODO file in the project root?',
+		'and nothing else',
+		_List_fromArray(
+			['/TODO'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to ignore all files in any directory named build?',
+		'$ >',
+		_List_fromArray(
+			['build/'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to ignore txt files in the doc/ folder but not in its subfolder',
+		'$ >',
+		_List_fromArray(
+			['doc/*.txt'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to ignore all pdf files in the doc/ directory and any of its subdirectories',
+		'$ >',
+		_List_fromArray(
+			['doc/**/*.pdf'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to know what has been staged and will go in the next commit?',
+		'think different with stat',
+		_List_fromArray(
+			['git diff --staged --stat', 'git diff --cached --stat'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to know what you have changed but not yet staged?',
+		'think different',
+		_List_fromArray(
+			['git diff'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to commit your changes?',
+		'$ >',
+		_List_fromArray(
+			['git commit'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to stage and commit tracked files?',
+		'think automatic',
+		_List_fromArray(
+			['git commit -a'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to untrack file.txt while keeping it in your working directory?',
+		'remove it from the index',
+		_List_fromArray(
+			['git rm --cached file.txt'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to rename an already tracked file.from to file.to?',
+		'$ >',
+		_List_fromArray(
+			['git mv file.from file.to'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to view the commit history?',
+		'$ >',
+		_List_fromArray(
+			['git log'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to view the commit history as well as the change introduced by each commit?',
+		'a change is a patch',
+		_List_fromArray(
+			['git log -p', 'git log --patch'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to view commit history and limit logs entries to 3?',
+		'$ >',
+		_List_fromArray(
+			['git log -3'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to view files modified by each commit in the history?',
+		'some statistics',
+		_List_fromArray(
+			['git log --stat'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how many occurrence of the string my-string in the commit history?',
+		'$ >',
+		_List_fromArray(
+			['git log -S my-string'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to view commit history only for path/file.txt ?',
+		'$ >',
+		_List_fromArray(
+			['git log -- path/file.txt'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to change the last commit?',
+		'i.e. update commit message, stage files',
+		_List_fromArray(
+			['git commit --amend'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to unstage file.txt?',
+		'reset to current commit',
+		_List_fromArray(
+			['git reset HEAD file.txt', 'git reset --mixed HEAD file.txt'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to undo unstage modifications to file.txt?',
+		'dangerous',
+		_List_fromArray(
+			['git checkout file.txt'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to unstage file.txt?',
+		'using restore',
+		_List_fromArray(
+			['git restore --staged file.txt'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to list the remotes?',
+		'$ >',
+		_List_fromArray(
+			['git remote', 'git remote -v'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to list the remotes, ?',
+		'with more details',
+		_List_fromArray(
+			['git remote -v'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to add a new remote repo named abc located at https://abc.git?',
+		'$ >',
+		_List_fromArray(
+			['git remote add abc https://abc.git'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to fetch all informations from the remote called origin?',
+		'$ >',
+		_List_fromArray(
+			['git fetch origin'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'what does git pull do?',
+		'think a && b',
+		_List_fromArray(
+			['git fetch && git merge'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to push to the master branch of the remote origin?',
+		'$ >',
+		_List_fromArray(
+			['git push origin master'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to see information of your remote called origin?',
+		'show me the data',
+		_List_fromArray(
+			['git remote show origin'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to rename a remote called paul to mike?',
+		'literally',
+		_List_fromArray(
+			['git remote rename paul mike'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to list tags?',
+		'$ >',
+		_List_fromArray(
+			['git tag', 'git tag -l', 'git tag --list'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to list tags starting with v1?',
+		'v1.0, v1.1, v1dev',
+		_List_fromArray(
+			['git tag -l v1*', 'git tag --list v1*'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'Name one type of tag?',
+		'$ >',
+		_List_fromArray(
+			['lighweight', 'annotated'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to create the annotated tag v1.4 with the message \'hey\'',
+		'$ >',
+		_List_fromArray(
+			['git tag -a v1.4 -m \'hey\''])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to create lighweight tag v1.4?',
+		'$ >',
+		_List_fromArray(
+			['git tag v1.4'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to show information about the tag v1.4?',
+		'$ >',
+		_List_fromArray(
+			['git tag show v1.4'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to tag the commit c12 to v1.4?',
+		'annotated',
+		_List_fromArray(
+			['git tag -a v1.4 c12'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to push the tag v1.4 to origin?',
+		'$ >',
+		_List_fromArray(
+			['git push origin v1.4'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to push all tags to origin?',
+		'$ >',
+		_List_fromArray(
+			['git push origin --tags'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to delete tag v1.4?',
+		'$ >',
+		_List_fromArray(
+			['git tag -d v1.4'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to delete the tag v1.4 on the remote origin?',
+		'use refs',
+		_List_fromArray(
+			['git push origin :refs/tags/v1.4'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to delete the tag v1.4 on the remote origin?',
+		'use delete',
+		_List_fromArray(
+			['git push origin --delete v1.4'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to check the code of v1.4?',
+		'literally',
+		_List_fromArray(
+			['git checkout v1.4'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to create a branch abc from v1.4?',
+		'use switch',
+		_List_fromArray(
+			['git switch -c abc v1.4'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to create a branch abc from v1.4?',
+		'use checkout',
+		_List_fromArray(
+			['git checkout -b abc v1.4'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to create new branch my-branch?',
+		'checkout won\'t cut it',
+		_List_fromArray(
+			['git branch my-branch'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'what the default name of the branch you are currently on?',
+		'handy for merge conflicts',
+		_List_fromArray(
+			['HEAD'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to switch to branch abc?',
+		'use checkout',
+		_List_fromArray(
+			['git checkout abc'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to switch to branch abc?',
+		'use switch',
+		_List_fromArray(
+			['git switch abc'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to create branch abc and switch to it?',
+		'use checkout',
+		_List_fromArray(
+			['git checkout -b abc'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to create branch abc and switch to it?',
+		'use switch',
+		_List_fromArray(
+			['git switch -c abc', 'git switch --create abc'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to merge branch hotfix in your current?',
+		'$ >',
+		_List_fromArray(
+			['git merge hotfix'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to delete the branch hotfix?',
+		'locally',
+		_List_fromArray(
+			['git branch -d hotfix'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to list your local branches?',
+		'$ >',
+		_List_fromArray(
+			['git branch'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to list branches and with last commits?',
+		'$ >',
+		_List_fromArray(
+			['git branch -v'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to list merged branches?',
+		'$ >',
+		_List_fromArray(
+			['git branch --merged'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to list not merged branches?',
+		'$ >',
+		_List_fromArray(
+			['git branch --no-merged'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to rename branch asd to jkl?',
+		'$ >',
+		_List_fromArray(
+			['git branch --move asd jkl'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to publish the branch abc to remote origin?',
+		'... and track',
+		_List_fromArray(
+			['git push origin --set-upstream my-branch', 'git push origin -u abc'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to delete the branch abc on the remote origin?',
+		'$ >',
+		_List_fromArray(
+			['git push origin --delete abc'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to list all branches local and remote?',
+		'$ >',
+		_List_fromArray(
+			['git branch --all'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to get information of remote branches on the origin remote?',
+		'show the data',
+		_List_fromArray(
+			['git remote show origin'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to push branch abc to remote origin?',
+		'$ >',
+		_List_fromArray(
+			['git push origin abc'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to push from branch abc to jkl on remote origin?',
+		'$ >',
+		_List_fromArray(
+			['git push origin abc:jkl'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to push from abc to jkl on remote origin and track?',
+		'$ >',
+		_List_fromArray(
+			['git push origin -u abc:jkl'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to create branch abc from jkl on remote origin?',
+		'$ >',
+		_List_fromArray(
+			['git checkout -b abc origin/jkl'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to make your current branch track orign/jkl?',
+		'$ >',
+		_List_fromArray(
+			['git branch -u origin/jkl', 'git branch --set-upstream origin/jkl'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to see branches tracking data?',
+		'$ >',
+		_List_fromArray(
+			['git branch -vv'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to rebase your current branch on master?',
+		'$ >',
+		_List_fromArray(
+			['git rebase master'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to check for whitespaces error before commit?',
+		'$ >',
+		_List_fromArray(
+			['git diff --check'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to partially stage changes in the same file?',
+		'$ >',
+		_List_fromArray(
+			['git add --patch', 'git add -p'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to display the commits in origin/develop that are not in my-branch?',
+		'$ >',
+		_List_fromArray(
+			['git log my-branch..origin/develop'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how te see commit history excluding merge?',
+		'$ >',
+		_List_fromArray(
+			['git log --no-merges'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to compare commits between my-branch and origin/develop excluding merges?',
+		'origin is ahead',
+		_List_fromArray(
+			['git log --no-merges my-branch..origin/develop'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to merge my-branch squashing all commits into one?',
+		'$ >',
+		_List_fromArray(
+			['git merge --squash my-branch'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to check the work my-branch has introduced since its common ancestor with master?',
+		'$ >',
+		_List_fromArray(
+			['git diff master...my-branch'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to pull a single commit e43a6 into your current branch?',
+		'$ >',
+		_List_fromArray(
+			['git cherry-pick e43a6'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to generate a build number from master?',
+		'$ >',
+		_List_fromArray(
+			['git describe master'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to inspect commit 2bdf86',
+		'$ >',
+		_List_fromArray(
+			['git show 2bdf86'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to inspect branch my-branch?',
+		'$ >',
+		_List_fromArray(
+			['git show my-branch'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to see a logs of HEAD history?',
+		'$ >',
+		_List_fromArray(
+			['git reflog'])),
+		A3(
+		$author$project$KubectlUtils$Question$Question,
+		'how to modify last commit with same message?',
+		'$ >',
+		_List_fromArray(
+			['git commit --amend --no-edit']))
+	]);
+var $author$project$Pages$Kubectl$init = function () {
+	var model = {current_answer: '', current_answer_status: $author$project$Pages$Kubectl$NotCorrect, feedback: '', next_question_enabled: false, question: $elm$core$Maybe$Nothing, show_solution: false};
+	return _Utils_Tuple2(
+		model,
+		A2(
+			$elm$random$Random$generate,
+			$author$project$Pages$Kubectl$NewQuestion,
+			$author$project$KubectlUtils$Question$questionGenerator($author$project$KubectlUtils$QuestionsBasic$questions)));
+}();
+var $author$project$Pages$Kubectl$subscriptions = function (model) {
+	return $elm$core$Platform$Sub$none;
+};
+var $author$project$Pages$Kubectl$Correct = {$: 'Correct'};
+var $author$project$Pages$Kubectl$evaluate_answer = F2(
+	function (model, answer) {
+		var _v0 = model.question;
+		if (_v0.$ === 'Just') {
+			var question = _v0.a;
+			return A2($elm$core$List$member, answer, question.answers) ? $author$project$Pages$Kubectl$Correct : $author$project$Pages$Kubectl$NotCorrect;
+		} else {
+			return $author$project$Pages$Kubectl$NotCorrect;
+		}
+	});
+var $author$project$Pages$Kubectl$update = F2(
+	function (msg, model) {
+		switch (msg.$) {
+			case 'Next':
+				return _Utils_Tuple2(
+					model,
+					A2(
+						$elm$random$Random$generate,
+						$author$project$Pages$Kubectl$NewQuestion,
+						$author$project$KubectlUtils$Question$questionGenerator($author$project$KubectlUtils$QuestionsBasic$questions)));
+			case 'NewQuestion':
+				var q = msg.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							current_answer: '',
+							current_answer_status: $author$project$Pages$Kubectl$NotCorrect,
+							next_question_enabled: false,
+							question: $elm$core$Maybe$Just(q),
+							show_solution: false
+						}),
+					$elm$core$Platform$Cmd$none);
+			case 'Answer':
+				var answer = msg.a;
+				var _v1 = model.current_answer_status;
+				if (_v1.$ === 'NotCorrect') {
+					return _Utils_Tuple2(
+						_Utils_update(
+							model,
+							{
+								current_answer: answer,
+								current_answer_status: A2($author$project$Pages$Kubectl$evaluate_answer, model, answer)
+							}),
+						$elm$core$Platform$Cmd$none);
+				} else {
+					return _Utils_Tuple2(
+						_Utils_update(
+							model,
+							{next_question_enabled: true}),
+						$elm$core$Platform$Cmd$none);
+				}
+			case 'ShowSolution':
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{next_question_enabled: true, show_solution: true}),
+					$elm$core$Platform$Cmd$none);
+			default:
+				return _Utils_eq(model.current_answer_status, $author$project$Pages$Kubectl$Correct) ? _Utils_Tuple2(
+					model,
+					A2(
+						$elm$random$Random$generate,
+						$author$project$Pages$Kubectl$NewQuestion,
+						$author$project$KubectlUtils$Question$questionGenerator($author$project$KubectlUtils$QuestionsBasic$questions))) : _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+		}
+	});
+var $author$project$Pages$Kubectl$Answer = function (a) {
+	return {$: 'Answer', a: a};
+};
+var $author$project$Pages$Kubectl$Next = {$: 'Next'};
+var $author$project$Pages$Kubectl$ShowSolution = {$: 'ShowSolution'};
+var $author$project$Pages$Kubectl$capitalizeString = function (s) {
+	var ts = $elm$core$String$trim(s);
+	var tail_s = A2($elm$core$String$dropLeft, 1, ts);
+	var head_s = $elm$core$String$toUpper(
+		A2($elm$core$String$left, 1, ts));
+	return _Utils_ap(head_s, tail_s);
+};
+var $author$project$KubectlUtils$ColorSummer$red = A3($mdgriffith$elm_ui$Element$rgb255, 223, 82, 107);
+var $author$project$KubectlUtils$ColorSummer$teal = A3($mdgriffith$elm_ui$Element$rgb255, 77, 188, 198);
+var $author$project$Pages$Kubectl$EnterWasPressed = {$: 'EnterWasPressed'};
+var $author$project$KubectlUtils$ColorSummer$gray_dark = A3($mdgriffith$elm_ui$Element$rgb255, 124, 127, 135);
+var $author$project$KubectlUtils$ColorSummer$gray_light = A3($mdgriffith$elm_ui$Element$rgb255, 186, 186, 186);
+var $author$project$KubectlUtils$ColorSummer$green = A3($mdgriffith$elm_ui$Element$rgb255, 90, 167, 148);
+var $author$project$Pages$Kubectl$onEnter = function (msg) {
+	return $mdgriffith$elm_ui$Element$htmlAttribute(
+		A2(
+			$elm$html$Html$Events$on,
+			'keyup',
+			A2(
+				$elm$json$Json$Decode$andThen,
+				function (key) {
+					return (key === 'Enter') ? $elm$json$Json$Decode$succeed(msg) : $elm$json$Json$Decode$fail('Not the enter key');
+				},
+				A2($elm$json$Json$Decode$field, 'key', $elm$json$Json$Decode$string))));
+};
+var $author$project$Pages$Kubectl$track_progress_answer = F2(
+	function (current_answer, answers) {
+		return A2(
+			$elm$core$List$any,
+			$elm$core$String$startsWith(current_answer),
+			answers);
+	});
+var $author$project$Pages$Kubectl$viewInput = F5(
+	function (model, hint, current_answer, answers, toMsg) {
+		var show_continue_message = _Utils_eq(model.current_answer_status, $author$project$Pages$Kubectl$Correct) ? A2(
+			$mdgriffith$elm_ui$Element$el,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$Font$color($author$project$KubectlUtils$ColorSummer$gray_light),
+					$mdgriffith$elm_ui$Element$Font$size(15),
+					$mdgriffith$elm_ui$Element$moveUp(10),
+					$mdgriffith$elm_ui$Element$alignRight
+				]),
+			$mdgriffith$elm_ui$Element$text('excellent!, press enter to continue')) : $mdgriffith$elm_ui$Element$none;
+		var show_alternative_answers = function () {
+			if (_Utils_eq(model.current_answer_status, $author$project$Pages$Kubectl$Correct)) {
+				if ($elm$core$List$length(answers) <= 1) {
+					return $mdgriffith$elm_ui$Element$none;
+				} else {
+					var answers_not_selected = A2(
+						$elm$core$List$filter,
+						function (o) {
+							return _Utils_eq(o, current_answer) ? false : true;
+						},
+						answers);
+					return A2(
+						$mdgriffith$elm_ui$Element$row,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Font$size(15),
+								$mdgriffith$elm_ui$Element$moveDown(10)
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$mdgriffith$elm_ui$Element$column,
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$alignTop,
+										$mdgriffith$elm_ui$Element$Font$color($author$project$KubectlUtils$ColorSummer$gray_light)
+									]),
+								_List_fromArray(
+									[
+										$mdgriffith$elm_ui$Element$text('alternative solution    ')
+									])),
+								A2(
+								$mdgriffith$elm_ui$Element$column,
+								_List_Nil,
+								A2(
+									$elm$core$List$map,
+									function (o) {
+										return A2(
+											$mdgriffith$elm_ui$Element$row,
+											_List_fromArray(
+												[
+													$mdgriffith$elm_ui$Element$Font$color($author$project$KubectlUtils$ColorSummer$teal)
+												]),
+											o);
+									},
+									A2(
+										$elm$core$List$map,
+										function (o) {
+											return _List_fromArray(
+												[o]);
+										},
+										A2(
+											$elm$core$List$map,
+											$mdgriffith$elm_ui$Element$text,
+											A2(
+												$elm$core$List$map,
+												function (o) {
+													return '~$ ' + o;
+												},
+												answers_not_selected)))))
+							]));
+				}
+			} else {
+				return $mdgriffith$elm_ui$Element$none;
+			}
+		}();
+		var dStyle = function () {
+			var answer_status = A2($author$project$Pages$Kubectl$evaluate_answer, model, current_answer);
+			if (answer_status.$ === 'Correct') {
+				return $mdgriffith$elm_ui$Element$Font$color($author$project$KubectlUtils$ColorSummer$green);
+			} else {
+				return A2($author$project$Pages$Kubectl$track_progress_answer, current_answer, answers) ? $mdgriffith$elm_ui$Element$Font$color($author$project$KubectlUtils$ColorSummer$gray_dark) : $mdgriffith$elm_ui$Element$Font$color($author$project$KubectlUtils$ColorSummer$red);
+			}
+		}();
+		var answer_to_show = function () {
+			if (model.show_solution) {
+				var _v0 = $elm$core$List$head(answers);
+				if (_v0.$ === 'Just') {
+					var answer = _v0.a;
+					return answer;
+				} else {
+					return 'could not find answer :(';
+				}
+			} else {
+				return current_answer;
+			}
+		}();
+		return A2(
+			$mdgriffith$elm_ui$Element$Input$text,
+			_List_fromArray(
+				[
+					dStyle,
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+					$author$project$Pages$Kubectl$onEnter($author$project$Pages$Kubectl$EnterWasPressed),
+					$mdgriffith$elm_ui$Element$centerX,
+					$mdgriffith$elm_ui$Element$Font$family(
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$Font$typeface('IBM Plex Mono'),
+							$mdgriffith$elm_ui$Element$Font$monospace
+						])),
+					$mdgriffith$elm_ui$Element$above(show_continue_message),
+					$mdgriffith$elm_ui$Element$below(show_alternative_answers)
+				]),
+			{
+				label: $mdgriffith$elm_ui$Element$Input$labelHidden('label'),
+				onChange: toMsg,
+				placeholder: $elm$core$Maybe$Just(
+					A2(
+						$mdgriffith$elm_ui$Element$Input$placeholder,
+						_List_fromArray(
+							[
+								$mdgriffith$elm_ui$Element$Font$color($author$project$KubectlUtils$ColorSummer$gray_light)
+							]),
+						$mdgriffith$elm_ui$Element$text(hint))),
+				text: answer_to_show
+			});
+	});
+var $author$project$Pages$Kubectl$bodyContent = function (model) {
+	var _v0 = model.question;
+	if (_v0.$ === 'Just') {
+		var question = _v0.a;
+		var make_button = F3(
+			function (msg, t, clr) {
+				return A2(
+					$mdgriffith$elm_ui$Element$Input$button,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill),
+							$mdgriffith$elm_ui$Element$Border$width(1),
+							$mdgriffith$elm_ui$Element$Border$rounded(4),
+							A2($mdgriffith$elm_ui$Element$paddingXY, 20, 0),
+							$mdgriffith$elm_ui$Element$Background$color(clr),
+							$mdgriffith$elm_ui$Element$Font$color(
+							A3($mdgriffith$elm_ui$Element$rgb, 1, 1, 1))
+						]),
+					{
+						label: $mdgriffith$elm_ui$Element$text(t),
+						onPress: $elm$core$Maybe$Just(msg)
+					});
+			});
+		var input_button_show_next = _Utils_eq(model.current_answer_status, $author$project$Pages$Kubectl$Correct) ? A3(make_button, $author$project$Pages$Kubectl$Next, 'next >', $author$project$KubectlUtils$ColorSummer$teal) : (model.show_solution ? A3(make_button, $author$project$Pages$Kubectl$Next, 'next >', $author$project$KubectlUtils$ColorSummer$teal) : A3(make_button, $author$project$Pages$Kubectl$ShowSolution, 'show', $author$project$KubectlUtils$ColorSummer$red));
+		return A2(
+			$mdgriffith$elm_ui$Element$row,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+					$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+				]),
+			_List_fromArray(
+				[
+					A2(
+					$mdgriffith$elm_ui$Element$column,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+						]),
+					_List_Nil),
+					A2(
+					$mdgriffith$elm_ui$Element$column,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$width(
+							$mdgriffith$elm_ui$Element$px(750)),
+							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+						]),
+					_List_fromArray(
+						[
+							A2(
+							$mdgriffith$elm_ui$Element$row,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$centerX,
+									$mdgriffith$elm_ui$Element$centerY,
+									A2($mdgriffith$elm_ui$Element$paddingXY, 20, 50),
+									$mdgriffith$elm_ui$Element$Font$size(30)
+								]),
+							_List_fromArray(
+								[
+									A2(
+									$mdgriffith$elm_ui$Element$paragraph,
+									_List_Nil,
+									_List_fromArray(
+										[
+											$mdgriffith$elm_ui$Element$text(
+											$author$project$Pages$Kubectl$capitalizeString(question.question))
+										]))
+								])),
+							A2(
+							$mdgriffith$elm_ui$Element$row,
+							_List_fromArray(
+								[
+									$mdgriffith$elm_ui$Element$centerX,
+									$mdgriffith$elm_ui$Element$centerY,
+									$mdgriffith$elm_ui$Element$padding(10),
+									$mdgriffith$elm_ui$Element$width(
+									$mdgriffith$elm_ui$Element$px(750)),
+									$mdgriffith$elm_ui$Element$spacing(20)
+								]),
+							_List_fromArray(
+								[
+									A5($author$project$Pages$Kubectl$viewInput, model, question.hint, model.current_answer, question.answers, $author$project$Pages$Kubectl$Answer),
+									input_button_show_next
+								]))
+						])),
+					A2(
+					$mdgriffith$elm_ui$Element$column,
+					_List_fromArray(
+						[
+							$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+							$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+						]),
+					_List_Nil)
+				]));
+	} else {
+		return A2(
+			$mdgriffith$elm_ui$Element$column,
+			_List_Nil,
+			_List_fromArray(
+				[
+					$mdgriffith$elm_ui$Element$text('no questions today :(')
+				]));
+	}
+};
+var $author$project$Pages$Kubectl$view = function (model) {
+	var title = '🥃 a drop on the kubectl';
+	var element = A2(
+		$author$project$UI$layout,
+		title,
+		_List_fromArray(
+			[
+				A2(
+				$mdgriffith$elm_ui$Element$column,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$width($mdgriffith$elm_ui$Element$fill),
+						$mdgriffith$elm_ui$Element$height($mdgriffith$elm_ui$Element$fill)
+					]),
+				_List_fromArray(
+					[
+						$author$project$Pages$Kubectl$bodyContent(model)
+					]))
+			]));
+	return {element: element, title: title};
 };
 var $author$project$Pages$Kubectl$page = F2(
 	function (shared, req) {
@@ -19731,6 +21331,7 @@ var $author$project$Gen$Pages$pages = {
 	dynamic__name_: A3($author$project$Gen$Pages$bundle, $author$project$Pages$Dynamic$Name_$page, $author$project$Gen$Model$Dynamic__Name_, $author$project$Gen$Msg$Dynamic__Name_),
 	element: A3($author$project$Gen$Pages$bundle, $author$project$Pages$Element$page, $author$project$Gen$Model$Element, $author$project$Gen$Msg$Element),
 	git: A3($author$project$Gen$Pages$bundle, $author$project$Pages$Git$page, $author$project$Gen$Model$Git, $author$project$Gen$Msg$Git),
+	helm: A3($author$project$Gen$Pages$bundle, $author$project$Pages$Helm$page, $author$project$Gen$Model$Helm, $author$project$Gen$Msg$Helm),
 	home_: A2($author$project$Gen$Pages$static, $author$project$Pages$Home_$view, $author$project$Gen$Model$Home_),
 	kubectl: A3($author$project$Gen$Pages$bundle, $author$project$Pages$Kubectl$page, $author$project$Gen$Model$Kubectl, $author$project$Gen$Msg$Kubectl),
 	notFound: A2($author$project$Gen$Pages$static, $author$project$Pages$NotFound$view, $author$project$Gen$Model$NotFound),
@@ -19745,6 +21346,8 @@ var $author$project$Gen$Pages$init = function (route) {
 			return $author$project$Gen$Pages$pages.element.init(_Utils_Tuple0);
 		case 'Git':
 			return $author$project$Gen$Pages$pages.git.init(_Utils_Tuple0);
+		case 'Helm':
+			return $author$project$Gen$Pages$pages.helm.init(_Utils_Tuple0);
 		case 'Home_':
 			return $author$project$Gen$Pages$pages.home_.init(_Utils_Tuple0);
 		case 'Kubectl':
@@ -19839,6 +21442,10 @@ var $author$project$Gen$Pages$subscriptions = function (model_) {
 			var params = model_.a;
 			var model = model_.b;
 			return A2($author$project$Gen$Pages$pages.git.subscriptions, params, model);
+		case 'Helm':
+			var params = model_.a;
+			var model = model_.b;
+			return A2($author$project$Gen$Pages$pages.helm.subscriptions, params, model);
 		case 'Home_':
 			var params = model_.a;
 			return A2($author$project$Gen$Pages$pages.home_.subscriptions, params, _Utils_Tuple0);
@@ -19933,7 +21540,7 @@ var $elm$url$Url$toString = function (url) {
 var $author$project$Gen$Pages$update = F2(
 	function (msg_, model_) {
 		var _v0 = _Utils_Tuple2(msg_, model_);
-		_v0$7:
+		_v0$8:
 		while (true) {
 			switch (_v0.a.$) {
 				case 'Advanced':
@@ -19944,7 +21551,7 @@ var $author$project$Gen$Pages$update = F2(
 						var model = _v1.b;
 						return A3($author$project$Gen$Pages$pages.advanced.update, params, msg, model);
 					} else {
-						break _v0$7;
+						break _v0$8;
 					}
 				case 'Element':
 					if (_v0.b.$ === 'Element') {
@@ -19954,7 +21561,7 @@ var $author$project$Gen$Pages$update = F2(
 						var model = _v2.b;
 						return A3($author$project$Gen$Pages$pages.element.update, params, msg, model);
 					} else {
-						break _v0$7;
+						break _v0$8;
 					}
 				case 'Git':
 					if (_v0.b.$ === 'Git') {
@@ -19964,52 +21571,62 @@ var $author$project$Gen$Pages$update = F2(
 						var model = _v3.b;
 						return A3($author$project$Gen$Pages$pages.git.update, params, msg, model);
 					} else {
-						break _v0$7;
+						break _v0$8;
 					}
-				case 'Kubectl':
-					if (_v0.b.$ === 'Kubectl') {
+				case 'Helm':
+					if (_v0.b.$ === 'Helm') {
 						var msg = _v0.a.a;
 						var _v4 = _v0.b;
 						var params = _v4.a;
 						var model = _v4.b;
-						return A3($author$project$Gen$Pages$pages.kubectl.update, params, msg, model);
+						return A3($author$project$Gen$Pages$pages.helm.update, params, msg, model);
 					} else {
-						break _v0$7;
+						break _v0$8;
 					}
-				case 'Sandbox':
-					if (_v0.b.$ === 'Sandbox') {
+				case 'Kubectl':
+					if (_v0.b.$ === 'Kubectl') {
 						var msg = _v0.a.a;
 						var _v5 = _v0.b;
 						var params = _v5.a;
 						var model = _v5.b;
-						return A3($author$project$Gen$Pages$pages.sandbox.update, params, msg, model);
+						return A3($author$project$Gen$Pages$pages.kubectl.update, params, msg, model);
 					} else {
-						break _v0$7;
+						break _v0$8;
 					}
-				case 'Static':
-					if (_v0.b.$ === 'Static') {
+				case 'Sandbox':
+					if (_v0.b.$ === 'Sandbox') {
 						var msg = _v0.a.a;
 						var _v6 = _v0.b;
 						var params = _v6.a;
 						var model = _v6.b;
-						return A3($author$project$Gen$Pages$pages._static.update, params, msg, model);
+						return A3($author$project$Gen$Pages$pages.sandbox.update, params, msg, model);
 					} else {
-						break _v0$7;
+						break _v0$8;
 					}
-				default:
-					if (_v0.b.$ === 'Dynamic__Name_') {
+				case 'Static':
+					if (_v0.b.$ === 'Static') {
 						var msg = _v0.a.a;
 						var _v7 = _v0.b;
 						var params = _v7.a;
 						var model = _v7.b;
+						return A3($author$project$Gen$Pages$pages._static.update, params, msg, model);
+					} else {
+						break _v0$8;
+					}
+				default:
+					if (_v0.b.$ === 'Dynamic__Name_') {
+						var msg = _v0.a.a;
+						var _v8 = _v0.b;
+						var params = _v8.a;
+						var model = _v8.b;
 						return A3($author$project$Gen$Pages$pages.dynamic__name_.update, params, msg, model);
 					} else {
-						break _v0$7;
+						break _v0$8;
 					}
 			}
 		}
 		return F3(
-			function (_v8, _v9, _v10) {
+			function (_v9, _v10, _v11) {
 				return _Utils_Tuple2(model_, $author$project$Effect$none);
 			});
 	});
@@ -20343,6 +21960,10 @@ var $author$project$Gen$Pages$view = function (model_) {
 			var params = model_.a;
 			var model = model_.b;
 			return A2($author$project$Gen$Pages$pages.git.view, params, model);
+		case 'Helm':
+			var params = model_.a;
+			var model = model_.b;
+			return A2($author$project$Gen$Pages$pages.helm.view, params, model);
 		case 'Home_':
 			var params = model_.a;
 			return A2($author$project$Gen$Pages$pages.home_.view, params, _Utils_Tuple0);
@@ -20376,4 +21997,4 @@ var $author$project$Main$view = function (model) {
 };
 var $author$project$Main$main = $elm$browser$Browser$application(
 	{init: $author$project$Main$init, onUrlChange: $author$project$Main$ChangedUrl, onUrlRequest: $author$project$Main$ClickedLink, subscriptions: $author$project$Main$subscriptions, update: $author$project$Main$update, view: $author$project$Main$view});
-_Platform_export({'Main':{'init':$author$project$Main$main($elm$json$Json$Decode$value)({"versions":{"elm":"0.19.1"},"types":{"message":"Main.Msg","aliases":{"Gen.Pages.Msg":{"args":[],"type":"Gen.Msg.Msg"},"Url.Url":{"args":[],"type":"{ protocol : Url.Protocol, host : String.String, port_ : Maybe.Maybe Basics.Int, path : String.String, query : Maybe.Maybe String.String, fragment : Maybe.Maybe String.String }"},"GitUtils.Question.Answer":{"args":[],"type":"String.String"},"GitUtils.Question.Answers":{"args":[],"type":"List.List GitUtils.Question.Answer"},"GitUtils.Question.Question":{"args":[],"type":"{ question : String.String, hint : String.String, answers : GitUtils.Question.Answers }"}},"unions":{"Main.Msg":{"args":[],"tags":{"ChangedUrl":["Url.Url"],"ClickedLink":["Browser.UrlRequest"],"Shared":["Shared.Msg"],"Page":["Gen.Pages.Msg"]}},"Basics.Int":{"args":[],"tags":{"Int":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"Gen.Msg.Msg":{"args":[],"tags":{"Advanced":["Pages.Advanced.Msg"],"Element":["Pages.Element.Msg"],"Git":["Pages.Git.Msg"],"Kubectl":["Pages.Kubectl.Msg"],"Sandbox":["Pages.Sandbox.Msg"],"Static":["Basics.Never"],"Dynamic__Name_":["Basics.Never"]}},"Shared.Msg":{"args":[],"tags":{"NoOp":[]}},"Url.Protocol":{"args":[],"tags":{"Http":[],"Https":[]}},"String.String":{"args":[],"tags":{"String":[]}},"Browser.UrlRequest":{"args":[],"tags":{"Internal":["Url.Url"],"External":["String.String"]}},"Pages.Advanced.Msg":{"args":[],"tags":{"ReplaceMe":[]}},"Pages.Element.Msg":{"args":[],"tags":{"ReplaceMe":[]}},"Pages.Git.Msg":{"args":[],"tags":{"NewQuestion":["GitUtils.Question.Question"],"Answer":["String.String"],"Next":[],"ShowSolution":[],"EnterWasPressed":[]}},"Pages.Kubectl.Msg":{"args":[],"tags":{"ReplaceMe":[]}},"Pages.Sandbox.Msg":{"args":[],"tags":{"ReplaceMe":[]}},"Basics.Never":{"args":[],"tags":{"JustOneMore":["Basics.Never"]}},"List.List":{"args":["a"],"tags":{}}}}})}});}(this));
+_Platform_export({'Main':{'init':$author$project$Main$main($elm$json$Json$Decode$value)({"versions":{"elm":"0.19.1"},"types":{"message":"Main.Msg","aliases":{"Gen.Pages.Msg":{"args":[],"type":"Gen.Msg.Msg"},"Url.Url":{"args":[],"type":"{ protocol : Url.Protocol, host : String.String, port_ : Maybe.Maybe Basics.Int, path : String.String, query : Maybe.Maybe String.String, fragment : Maybe.Maybe String.String }"},"GitUtils.Question.Answer":{"args":[],"type":"String.String"},"HelmUtils.Question.Answer":{"args":[],"type":"String.String"},"KubectlUtils.Question.Answer":{"args":[],"type":"String.String"},"GitUtils.Question.Answers":{"args":[],"type":"List.List GitUtils.Question.Answer"},"HelmUtils.Question.Answers":{"args":[],"type":"List.List HelmUtils.Question.Answer"},"KubectlUtils.Question.Answers":{"args":[],"type":"List.List KubectlUtils.Question.Answer"},"GitUtils.Question.Question":{"args":[],"type":"{ question : String.String, hint : String.String, answers : GitUtils.Question.Answers }"},"HelmUtils.Question.Question":{"args":[],"type":"{ question : String.String, hint : String.String, answers : HelmUtils.Question.Answers }"},"KubectlUtils.Question.Question":{"args":[],"type":"{ question : String.String, hint : String.String, answers : KubectlUtils.Question.Answers }"}},"unions":{"Main.Msg":{"args":[],"tags":{"ChangedUrl":["Url.Url"],"ClickedLink":["Browser.UrlRequest"],"Shared":["Shared.Msg"],"Page":["Gen.Pages.Msg"]}},"Basics.Int":{"args":[],"tags":{"Int":[]}},"Maybe.Maybe":{"args":["a"],"tags":{"Just":["a"],"Nothing":[]}},"Gen.Msg.Msg":{"args":[],"tags":{"Advanced":["Pages.Advanced.Msg"],"Element":["Pages.Element.Msg"],"Git":["Pages.Git.Msg"],"Helm":["Pages.Helm.Msg"],"Kubectl":["Pages.Kubectl.Msg"],"Sandbox":["Pages.Sandbox.Msg"],"Static":["Basics.Never"],"Dynamic__Name_":["Basics.Never"]}},"Shared.Msg":{"args":[],"tags":{"NoOp":[]}},"Url.Protocol":{"args":[],"tags":{"Http":[],"Https":[]}},"String.String":{"args":[],"tags":{"String":[]}},"Browser.UrlRequest":{"args":[],"tags":{"Internal":["Url.Url"],"External":["String.String"]}},"Pages.Advanced.Msg":{"args":[],"tags":{"ReplaceMe":[]}},"Pages.Element.Msg":{"args":[],"tags":{"ReplaceMe":[]}},"Pages.Git.Msg":{"args":[],"tags":{"NewQuestion":["GitUtils.Question.Question"],"Answer":["String.String"],"Next":[],"ShowSolution":[],"EnterWasPressed":[]}},"Pages.Helm.Msg":{"args":[],"tags":{"NewQuestion":["HelmUtils.Question.Question"],"Answer":["String.String"],"Next":[],"ShowSolution":[],"EnterWasPressed":[]}},"Pages.Kubectl.Msg":{"args":[],"tags":{"NewQuestion":["KubectlUtils.Question.Question"],"Answer":["String.String"],"Next":[],"ShowSolution":[],"EnterWasPressed":[]}},"Pages.Sandbox.Msg":{"args":[],"tags":{"ReplaceMe":[]}},"Basics.Never":{"args":[],"tags":{"JustOneMore":["Basics.Never"]}},"List.List":{"args":["a"],"tags":{}}}}})}});}(this));

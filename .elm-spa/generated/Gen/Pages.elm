@@ -6,6 +6,7 @@ import ElmSpa.Page
 import Gen.Params.Advanced
 import Gen.Params.Element
 import Gen.Params.Git
+import Gen.Params.Helm
 import Gen.Params.Home_
 import Gen.Params.Kubectl
 import Gen.Params.Sandbox
@@ -19,6 +20,7 @@ import Page exposing (Page)
 import Pages.Advanced
 import Pages.Element
 import Pages.Git
+import Pages.Helm
 import Pages.Home_
 import Pages.Kubectl
 import Pages.Sandbox
@@ -52,6 +54,9 @@ init route =
         Route.Git ->
             pages.git.init ()
     
+        Route.Helm ->
+            pages.helm.init ()
+    
         Route.Home_ ->
             pages.home_.init ()
     
@@ -83,6 +88,9 @@ update msg_ model_ =
         ( Msg.Git msg, Model.Git params model ) ->
             pages.git.update params msg model
     
+        ( Msg.Helm msg, Model.Helm params model ) ->
+            pages.helm.update params msg model
+    
         ( Msg.Kubectl msg, Model.Kubectl params model ) ->
             pages.kubectl.update params msg model
     
@@ -113,6 +121,9 @@ view model_ =
     
         Model.Git params model ->
             pages.git.view params model
+    
+        Model.Helm params model ->
+            pages.helm.view params model
     
         Model.Home_ params ->
             pages.home_.view params ()
@@ -148,6 +159,9 @@ subscriptions model_ =
         Model.Git params model ->
             pages.git.subscriptions params model
     
+        Model.Helm params model ->
+            pages.helm.subscriptions params model
+    
         Model.Home_ params ->
             pages.home_.subscriptions params ()
     
@@ -175,6 +189,7 @@ pages :
     { advanced : Bundle Gen.Params.Advanced.Params Pages.Advanced.Model Pages.Advanced.Msg
     , element : Bundle Gen.Params.Element.Params Pages.Element.Model Pages.Element.Msg
     , git : Bundle Gen.Params.Git.Params Pages.Git.Model Pages.Git.Msg
+    , helm : Bundle Gen.Params.Helm.Params Pages.Helm.Model Pages.Helm.Msg
     , home_ : Static Gen.Params.Home_.Params
     , kubectl : Bundle Gen.Params.Kubectl.Params Pages.Kubectl.Model Pages.Kubectl.Msg
     , sandbox : Bundle Gen.Params.Sandbox.Params Pages.Sandbox.Model Pages.Sandbox.Msg
@@ -186,6 +201,7 @@ pages =
     { advanced = bundle Pages.Advanced.page Model.Advanced Msg.Advanced
     , element = bundle Pages.Element.page Model.Element Msg.Element
     , git = bundle Pages.Git.page Model.Git Msg.Git
+    , helm = bundle Pages.Helm.page Model.Helm Msg.Helm
     , home_ = static Pages.Home_.view Model.Home_
     , kubectl = bundle Pages.Kubectl.page Model.Kubectl Msg.Kubectl
     , sandbox = bundle Pages.Sandbox.page Model.Sandbox Msg.Sandbox

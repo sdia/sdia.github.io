@@ -1,4 +1,4 @@
-module Pages.Kubectl exposing (Model, Msg, page)
+module Pages.Helm exposing (Model, Msg, page)
 
 -- import Html exposing (Html)
 
@@ -8,12 +8,12 @@ import Element.Border as Border
 import Element.Font as Font
 import Element.Input as Input
 import Gen.Params.Element exposing (Params)
+import HelmUtils.ColorSummer exposing (..)
+import HelmUtils.Question as Question exposing (Answer, Question, questionGenerator)
+import HelmUtils.QuestionsBasic as QuestionsBasic exposing (questions)
 import Html exposing (Html)
 import Html.Events
 import Json.Decode as Decode
-import KubectlUtils.ColorSummer exposing (..)
-import KubectlUtils.Question as Question exposing (Answer, Question, questionGenerator)
-import KubectlUtils.QuestionsBasic as QuestionsBasic exposing (questions)
 import Page
 import Random
 import Request
@@ -176,7 +176,7 @@ view : Model -> View Msg
 view model =
     let
         title =
-            "🥃 a drop on the kubectl"
+            "⛵ a take at the helm"
 
         element =
             UI.layout title

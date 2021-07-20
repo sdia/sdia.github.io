@@ -67,13 +67,15 @@ layout titleNav children =
             , spacing 20
             , Border.widthXY 0 1
             , Border.color (rgb255 186 186 186)
+            , Font.size 15
 
             -- , explain Debug.todo
             ]
             [ column [ alignLeft ]
-                [ row [ alignLeft ] [ viewLink "/home" Route.Home_ ]
-                , row [ alignLeft ] [ viewLink "/git" Route.Git ]
-                , row [ alignLeft ] [ viewLink "/kubectl" Route.Kubectl ]
+                [ row [ alignLeft ] [ viewLink "about" Route.Home_ ]
+                , row [ alignLeft ] [ viewLink "git" Route.Git ]
+                , row [ alignLeft ] [ viewLink "kubectl" Route.Kubectl ]
+                , row [ alignLeft ] [ viewLink "helm" Route.Helm ]
 
                 -- , row [ alignLeft ] [ viewLink "Static" Route.Static ]
                 -- , row [ alignLeft ] [ viewLink "Sandbox" Route.Sandbox ]
